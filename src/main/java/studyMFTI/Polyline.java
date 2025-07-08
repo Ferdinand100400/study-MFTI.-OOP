@@ -1,20 +1,26 @@
 package studyMFTI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // Задача 1.3.2
 // Задача 1.4.3
 public class Polyline {
-    private List<Point> points = new ArrayList<>();
+    private List<Point> points;
 
-    public Polyline() {}
-    public Polyline(List<Point> points) {
-        this.points = points;
+    public Polyline() {
+        points = new ArrayList<>();
+    }
+    public Polyline(Point...points) {
+        if (points.length == 0) return;
+        this.points = new ArrayList<>();
+        this.points.addAll(Arrays.asList(points));
     }
 
     @Override
     public String toString() {
+        if (points == null) return "Линия []";
         String res = "Линия [";
         for (int i = 0; i < points.size() - 1; i++) {
             res += points.get(i) + ",";
@@ -24,6 +30,7 @@ public class Polyline {
     }
 
     public void setPoint(int index, Point point) {
+
         if (index >= this.points.size() || index < 0) {
             if (index > this.points.size() || index < 0) throw new ArrayIndexOutOfBoundsException();
             points.add(point);
@@ -38,6 +45,7 @@ public class Polyline {
     }
 
     public List<Point> getPoints() {
+        if (points == null) throw new IllegalArgumentException();
         return points;
     }
 }

@@ -1,5 +1,6 @@
 package studyMFTI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Задача 1.3.1
@@ -8,9 +9,12 @@ public class Student {
     private String name;
     private List<Integer> marks;
 
-    public Student(String name, List<Integer> marks) {
+    public Student(String name, int...marks) {
         this.name = name;
-        if (marks != null) this.marks = marks;
+        if (marks.length > 0) this.marks = new ArrayList<>();
+        for (int mark : marks) {
+            this.marks.add(mark);
+        }
     }
 
     @Override
@@ -24,9 +28,6 @@ public class Student {
         return res;
     }
 
-    public List<Integer> getMarks() {
-        return marks;
-    }
     public void setMarks(List<Integer> marks) {
         this.marks = marks;
     }
