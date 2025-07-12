@@ -2,6 +2,7 @@ package studyMFTI;
 
 // Задача 1.1.2; 1.2.2; 1.2.3
 // Задача 1.4.6
+// Задача 1.5.4
 public class Human {
 
     private Name name;
@@ -23,22 +24,26 @@ public class Human {
 
     @Override
     public String toString() {
-        String res = "";
-        if (name.getSurname() == null) {
-            if (father != null && father.getName().getSurname() != null) res += father.getName().getSurname();
-        } else {
-            res += name.getSurname();
-        }
-        if (name.getName() != null) res += " " + name.getName();
-        if (name.getPatronymic() == null) {
-            if (father != null && father.getName().getName() != null) res += " " + father.getName().getName() + "ович";
-        } else {
-            res += " " + name.getPatronymic();
-        }
-        return res;
+        return this.getSurname() + " " + this.getOwenName() + " " + this.getPatronymic();
     }
 
     public Name getName() {
         return name;
+    }
+
+    public String getOwenName() {
+        return name.getName();
+    }
+
+    public String getSurname() {
+        if (name.getSurname() != null && !name.getSurname().isEmpty()) return name.getSurname();
+        if (father == null) return "";
+        return father.getSurname();
+    }
+
+    public String getPatronymic() {
+        if (name.getPatronymic() != null && !name.getPatronymic().isEmpty()) return name.getPatronymic();
+        if (father == null) return "";
+        return father.getOwenName() + "ович";
     }
 }

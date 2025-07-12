@@ -1,7 +1,11 @@
 package studyMFTI;
 
+
+import static java.lang.Math.*;
+
 // Задача 1.2.1
 // Задача 1.4.2
+// Задача 1.5.3
 public class Line {
     private Point startPoint;
     private Point endPoint;
@@ -35,5 +39,10 @@ public class Line {
 
     public Point getEndPoint() {
         return endPoint;
+    }
+
+    public int length() {
+        return (int) abs(sqrt(pow(startPoint.getX() - endPoint.getX(), 2) + pow(startPoint.getY() - endPoint.getY(), 2)));
+
     }
 }

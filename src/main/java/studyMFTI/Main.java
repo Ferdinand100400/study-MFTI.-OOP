@@ -1,4 +1,5 @@
 package studyMFTI;
+
 class TestBlockTask1_1 {
     public static void testTask1() {
         Point point1 = new Point(2, 5);
@@ -248,25 +249,104 @@ class TestBlockTask1_4 {
     }
 }
 
+class TestBlockTask1_5 {
+    public static void testTask1() {
+        Gun gun = new Gun(3);
+        gun.shoot();
+        gun.shoot();
+        gun.shoot();
+        gun.shoot();
+        gun.shoot();
+    }
+
+    public static void testTask2() {
+        Cat cat = new Cat("Барсик");
+        cat.meow();
+        cat.meow(3);
+    }
+
+    public static void testTask3() {
+        Line line = new Line(1, 1, 10, 15);
+        System.out.println(line.length());
+    }
+
+    public static void testTask5() {
+        Fraction fraction1 = new Fraction(10, 5);
+        Fraction fraction2 = new Fraction(25, 5);
+        Fraction fraction3 = new Fraction(8, 16);
+        Fraction fraction4 = new Fraction(10, 10);
+        Fraction fraction5 = new Fraction(1, 7);
+        System.out.println(fraction1 + " + " + fraction4 + " = " + fraction1.sum(fraction4));
+        System.out.println(fraction1 + " + " + "4" + " = " + fraction1.sum(4));
+        System.out.println(fraction1 + " - " + fraction2 + " = " + fraction1.minus(fraction2));
+        System.out.println(fraction1 + " - " + "2" + " = " + fraction1.minus(2));
+        System.out.println(fraction3 + " * " + fraction4 + " = " + fraction3.mul(fraction4));
+        System.out.println(fraction3 + " * " + "2" + " = " + fraction3.mul(2));
+        System.out.println(fraction4 + " / " + fraction5 + " = " + fraction4.div(fraction5));
+        System.out.println(fraction5 + " / " + "5" + " = " + fraction5.div(5));
+        System.out.println("((" + fraction1 + " + " + fraction2 + ") / " + fraction3 + ") - 5 = " + fraction1.sum(fraction2).div(fraction3).minus(5));
+    }
+
+    public static void testTask6() {
+        Student student1 = new Student("Вася", 3, 4, 5, 4);
+        Student student2 = new Student("Петя", 5, 5, 5, 5);
+        System.out.println(student1.getName() + ": средний бал: " + student1.averageMarks() + " " + student1.isExcellentStudent());
+        System.out.println(student2.getName() + ": средний бал: " + student2.averageMarks() + " " + student2.isExcellentStudent());
+    }
+
+    public static void testTask7() {
+        Polyline polyline = new Polyline(new Point(1, 5), new Point(2, 8), new Point(5, 3));
+        System.out.println(polyline.length());
+        polyline.addPoints(new Point(5, 15), new Point(8, 10));
+        System.out.println(polyline.length());
+    }
+
+    public static void testTask8() {
+        Square square = new Square(5, 3, 23);
+        Polyline polyline = square.getPolyline();
+        System.out.println(polyline.length());
+        polyline.setPoint(polyline.getPoints().size() - 1, new Point(15, 25));
+        System.out.println(polyline.length());
+    }
+
+}
+
+class TestBlockTask1_6 {
+    public static void TestTask1() {
+
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask1_1.testTask1();
-        TestBlockTask1_1.testTask4();
-        TestBlockTask1_1.testTask5();
+//        TestBlockTask1_1.testTask1();
+//        TestBlockTask1_1.testTask4();
+//        TestBlockTask1_1.testTask5();
 
-        TestBlockTask1_2.testTask1();
+//        TestBlockTask1_2.testTask1();
 
-        TestBlockTask1_3.testTask2();
-        TestBlockTask1_3.testTask3();
-        TestBlockTask1_3.testTask4();
+//        TestBlockTask1_3.testTask2();
+//        TestBlockTask1_3.testTask3();
+//        TestBlockTask1_3.testTask4();
 
-        TestBlockTask1_4.testTask1();
-        TestBlockTask1_4.testTask2();
-        TestBlockTask1_4.testTask3();
-        TestBlockTask1_4.testTask4();
-        TestBlockTask1_4.testTask5();
-        TestBlockTask1_4.testTask6();
-        TestBlockTask1_4.testTask7();
+//        TestBlockTask1_4.testTask1();
+//        TestBlockTask1_4.testTask2();
+//        TestBlockTask1_4.testTask3();
+//        TestBlockTask1_4.testTask4();
+//        TestBlockTask1_4.testTask5();
+//        TestBlockTask1_4.testTask6();
+//        TestBlockTask1_4.testTask7();
+
+//        TestBlockTask1_5.testTask1();
+//        TestBlockTask1_5.testTask2();
+//        TestBlockTask1_5.testTask3();
+//        TestBlockTask1_4.testTask6();
+//        TestBlockTask1_5.testTask5();
+//        TestBlockTask1_5.testTask6();
+//        TestBlockTask1_5.testTask7();
+//        TestBlockTask1_5.testTask8();
+
+        TestBlockTask1_6.TestTask1();
 
     }
 }
