@@ -2,16 +2,14 @@ package studyMFTI;
 
 // Задача 1.1.5
 // Задача 1.4.4
-public class House {
-    public final int amountFloor;
-
-    public House(int amountFloor) {
-        this.amountFloor = amountFloor;
+// Задача 1.6.1
+public record House(int amountFloor) {
+    public House {
+        if (amountFloor < 0) throw new IllegalArgumentException("Кол-во этажей не может быть отрицательным");
     }
 
     @Override
     public String toString() {
-        if (amountFloor < 1) throw new NumberFormatException("Кол-во этажей не может быть меньше 1");
         return "Дом с " + amountFloor + trueEnding();
     }
 

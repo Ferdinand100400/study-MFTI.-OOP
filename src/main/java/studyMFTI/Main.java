@@ -183,7 +183,7 @@ class TestBlockTask1_3 {
         System.out.println(employee1);
         System.out.println(employee2);
         System.out.println(employee3);
-        System.out.println(employee2.getDepartment().employees);
+        System.out.println(employee2.department().employees);
     }
 }
 
@@ -250,14 +250,14 @@ class TestBlockTask1_4 {
 }
 
 class TestBlockTask1_5 {
-    public static void testTask1() {
+    /*public static void testTask1() {
         Gun gun = new Gun(3);
         gun.shoot();
         gun.shoot();
         gun.shoot();
         gun.shoot();
         gun.shoot();
-    }
+    }*/
 
     public static void testTask2() {
         Cat cat = new Cat("Барсик");
@@ -313,8 +313,161 @@ class TestBlockTask1_5 {
 
 class TestBlockTask1_6 {
     public static void TestTask1() {
-
+        House house1 = new House(10);
+        System.out.println(house1);
+        House house2 = new House(0);
+        System.out.println(house2);
+        House house3 = new House(-5);
+        System.out.println(house3);
     }
+
+    public static void TestTask2_1() {
+        Name name = new Name("Вася");
+        System.out.println(name);
+    }
+
+    public static void TestTask2_2() {
+        Name name = new Name("Вася", "Чудов", null);
+        System.out.println(name);
+    }
+
+    public static void TestTask2_3() {
+        Name name = new Name("");
+        System.out.println(name);
+    }
+
+    public static void TestTask2_4() {
+        Name name = new Name(null);
+        System.out.println(name);
+    }
+
+    public static void TestTask2_5() {
+        Name name = new Name(null, "", null);
+        System.out.println(name);
+    }
+
+    public static void TestTask2_6() {
+        Name name = new Name(null, "", "Иванович");
+        System.out.println(name);
+    }
+
+    public static void TestTask3_1() {
+        Square square = new Square(1, 2, 5);
+        System.out.println(square.getLengthSide());
+        square.setLengthSide(10);
+        System.out.println(square.getLengthSide());
+        square.setLengthSide(0);
+    }
+
+    public static void TestTask3_2() {
+        Square square = new Square(1, 2, -5);
+    }
+
+    public static void TestTask4_1() {
+        Fraction fraction = new Fraction(5, -2);
+    }
+
+    public static void TestTask4_2() {
+        Fraction fraction = new Fraction(5, 0);
+    }
+
+    public static void TestTask4_3() {
+        Fraction fraction = new Fraction(5, 1);
+        System.out.println(fraction.sum(6));
+        System.out.println(fraction.div(-5));
+    }
+
+    public static void TestTask4_4() {
+        Fraction fraction = new Fraction(-5, 1);
+        System.out.println(fraction.sum(6));
+        System.out.println(fraction.div(5));
+        System.out.println(fraction.div(new Fraction(-5, 1)));
+    }
+
+    public static void TestTask4_5() {
+        Fraction fraction = new Fraction(-5, 1);
+        System.out.println(fraction.div(new Fraction(-5, -1)));
+    }
+
+    public static void TestTask5() {
+        Gun gun = new Gun(7, 3);
+        for (int i = 0; i < 5; i++) gun.shoot();
+        gun.setCount(8);
+        gun.shoot();
+        gun.shoot();
+        gun.discharge();
+        gun.shoot();
+    }
+
+    public static void TestTask6() {
+        Point point1 = new Point(1, 3);
+        Point point2 = new Point(5, 5);
+        Point point3 = new Point(10, 5);
+        Line line1 = new Line(point1, point2);
+        Line line2 = new Line(point1, point3);
+        if (!line1.getStartPoint().equals(line2.getStartPoint()))
+            System.out.println("Линии не ссылаются на один объект точки");
+    }
+
+    public static void TestTask8_1() {
+        Student student = new Student("Вася", 2, 3, 5, 1);
+    }
+    public static void TestTask8_2() {
+        Student student = new Student("Вася", 2, 6, 5, 5);
+    }
+    public static void TestTask8_3() {
+        Student student = new Student("Вася", 2, 3, 5, 5);
+        System.out.println(student.getMarks());
+    }
+    public static void TestTask8_4() {
+        Student student = new Student("Вася", 2, 5, 5, 3);
+        student.setMarksIndex(2, 6);
+    }
+    public static void TestTask8_5() {
+        Student student = new Student("Вася", 2, 5, 5, 3);
+        student.setMarksIndex(2, 2);
+        System.out.println(student.getMarks());
+    }
+
+    public static void TestTask9_1() {
+        City cityA = new City("A");
+        City cityB = new City("B");
+        City cityC = new City("C");
+        cityA.setWay(0, new Way(cityB, 5));
+        cityA.setWay(1, new Way(cityC, 6));
+        cityB.setWay(0, new Way(cityA, 5));
+        cityB.setWay(1, new Way(cityC, 7));
+        cityB.setWay(2, new Way(cityA, 10));
+        System.out.println(cityA);
+        System.out.println(cityB);
+    }
+    public static void TestTask9_2() {
+        City cityA = new City("A");
+        City cityB = new City("B");
+        City cityC = new City("C");
+        cityA.setWay(0, new Way(cityB, 5));
+        cityA.setWay(1, new Way(cityC, 6));
+        cityB.setWay(0, new Way(cityA, 5));
+        cityC.setWay(0, new Way(cityA, 10));
+        cityA.deleteWay(1);
+        System.out.println(cityA);
+    }
+
+    public static void TestTask10() {
+        Department departmentIT = new Department("IT");
+        Department departmentHR = new Department("HR");
+        Employee employee1 = new Employee("Петрова", departmentIT);
+        Employee employee2 = new Employee("Козлова", departmentIT);
+        Employee employee3 = new Employee("Сидорова", departmentHR);
+        departmentIT.setDirector(employee3);
+        departmentIT.setDirector(employee2);
+        System.out.println(employee1);
+        System.out.println(employee2);
+        System.out.println(employee3);
+        System.out.println(employee2.department().employees);
+        System.out.println(employee3.department().employees);
+    }
+
 }
 
 public class Main {
@@ -346,7 +499,14 @@ public class Main {
 //        TestBlockTask1_5.testTask7();
 //        TestBlockTask1_5.testTask8();
 
-        TestBlockTask1_6.TestTask1();
-
+//        TestBlockTask1_6.TestTask1();
+//        TestBlockTask1_6.TestTask2_6();
+//        TestBlockTask1_6.TestTask3_2();
+//        TestBlockTask1_6.TestTask4_5();
+//        TestBlockTask1_6.TestTask5();
+//        TestBlockTask1_6.TestTask6();
+//        TestBlockTask1_6.TestTask8_5();
+//        TestBlockTask1_6.TestTask9_2();
+//        TestBlockTask1_6.TestTask10();
     }
 }

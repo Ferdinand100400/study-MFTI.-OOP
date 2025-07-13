@@ -1,12 +1,16 @@
 package studyMFTI;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Задача 1.2.4
 // Задача 1.3.4
+// Задача 1.6.10
+@Getter
 public class Department {
-    private String name;
+    private final String name;
     private Employee director;
     public List<Employee> employees = new ArrayList<>();
 
@@ -18,18 +22,9 @@ public class Department {
     public String toString() {
         if (name == null) return "";
         if (director == null) return name;
-        return name + ", начальник которого " + director.getName();
+        return name + ", начальник которого " + director.name();
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public Employee getDirector() {
-        return director;
-    }
-
     public void setDirector(Employee director) {
-        this.director = director;
+        if (director.department().name.equals(this.name)) this.director = director;
     }
 }

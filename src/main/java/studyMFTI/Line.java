@@ -6,13 +6,14 @@ import static java.lang.Math.*;
 // Задача 1.2.1
 // Задача 1.4.2
 // Задача 1.5.3
+// Задача 1.6.6
 public class Line {
     private Point startPoint;
     private Point endPoint;
 
     public Line(Point point1, Point point2) {
-        this.startPoint = point1;
-        this.endPoint = point2;
+        startPoint = new Point(point1.getX(), point1.getY());
+        endPoint = new Point(point2.getX(), point2.getY());
     }
 
     public Line(int x1, int y1, int x2, int y2) {
@@ -26,19 +27,19 @@ public class Line {
     }
 
     public void setStartPoint(Point startPoint) {
-        this.startPoint = startPoint;
+        this.startPoint = new Point(startPoint.getX(), startPoint.getY());
     }
 
     public void setEndPoint(Point endPoint) {
-        this.endPoint = endPoint;
+        this.endPoint = new Point(endPoint.getX(), endPoint.getY());
     }
 
     public Point getStartPoint() {
-        return startPoint;
+        return new Point(startPoint.getX(), startPoint.getY());
     }
 
     public Point getEndPoint() {
-        return endPoint;
+        return new Point(endPoint.getX(), endPoint.getY());
     }
 
     public int length() {

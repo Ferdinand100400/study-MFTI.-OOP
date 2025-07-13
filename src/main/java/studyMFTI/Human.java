@@ -1,16 +1,20 @@
 package studyMFTI;
 
+import lombok.Getter;
+
 // Задача 1.1.2; 1.2.2; 1.2.3
 // Задача 1.4.6
 // Задача 1.5.4
+// Задача 1.6.7
+@Getter
 public class Human {
 
-    private Name name;
-    private Human father;
+    private final Name name;
+    private final Human father;
 
     public Human(Name name, Human father) {
         this.name = name;
-        if (father != null) this.father = father;
+        this.father = father;
     }
     public Human(String name, Human father) {
         this(new Name(name), father);
@@ -25,10 +29,6 @@ public class Human {
     @Override
     public String toString() {
         return this.getSurname() + " " + this.getOwenName() + " " + this.getPatronymic();
-    }
-
-    public Name getName() {
-        return name;
     }
 
     public String getOwenName() {

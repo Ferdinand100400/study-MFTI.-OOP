@@ -1,14 +1,12 @@
 package studyMFTI;
 
 // Задача 1.5.5
-public class Fraction {
-    private final int numerator;
-    private final int denominator;
+// Задача 1.6.4
+public record Fraction(int numerator, int denominator) {
 
-    public Fraction(int numerator, int denominator) {
+    public Fraction {
         if (denominator == 0) throw new IllegalArgumentException("Деление на ноль!");
-        this.numerator = numerator;
-        this.denominator = denominator;
+        if (denominator < 0) throw new IllegalArgumentException("Знаменатель не может быть отрицательным!");
     }
 
     @Override
@@ -52,6 +50,8 @@ public class Fraction {
 
     public Fraction div(Fraction fraction) {
         if (fraction.numerator == 0) throw new IllegalArgumentException("Деление на ноль!");
+        if (fraction.numerator < 0)
+            return new Fraction(numerator * (- fraction.denominator), denominator * (- fraction.numerator));
         return new Fraction(numerator * fraction.denominator, denominator * fraction.numerator);
     }
 
