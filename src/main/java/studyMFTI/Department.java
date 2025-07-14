@@ -22,9 +22,9 @@ public class Department {
     public String toString() {
         if (name == null) return "";
         if (director == null) return name;
-        return name + ", начальник которого " + director.name();
+        return name + ", начальник которого " + director.getName();
     }
     public void setDirector(Employee director) {
-        if (director.department().name.equals(this.name)) this.director = director;
+        if (director.getDepartment().name.equals(this.name)) this.director = director;
     }
 }

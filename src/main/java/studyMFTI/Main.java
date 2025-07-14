@@ -183,7 +183,7 @@ class TestBlockTask1_3 {
         System.out.println(employee1);
         System.out.println(employee2);
         System.out.println(employee3);
-        System.out.println(employee2.department().employees);
+        System.out.println(employee2.getDepartment().employees);
     }
 }
 
@@ -464,8 +464,11 @@ class TestBlockTask1_6 {
         System.out.println(employee1);
         System.out.println(employee2);
         System.out.println(employee3);
-        System.out.println(employee2.department().employees);
-        System.out.println(employee3.department().employees);
+        System.out.println(employee2.getDepartment().employees);
+        System.out.println(employee3.getDepartment().employees);
+        employee2.setDepartment(departmentHR);
+        System.out.println(employee2);
+        System.out.println(employee1);
     }
 
 }

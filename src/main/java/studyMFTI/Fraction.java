@@ -5,7 +5,6 @@ package studyMFTI;
 public record Fraction(int numerator, int denominator) {
 
     public Fraction {
-        if (denominator == 0) throw new IllegalArgumentException("Деление на ноль!");
         if (denominator < 0) throw new IllegalArgumentException("Знаменатель не может быть отрицательным!");
     }
 
@@ -22,7 +21,6 @@ public record Fraction(int numerator, int denominator) {
         int numerator2 = fraction.numerator * this.denominator;
         return new Fraction(numerator1 + numerator2, denominator);
     }
-
     public Fraction sum(int numbers) {
         return this.sum(new Fraction(numbers, 1));
     }
@@ -49,7 +47,6 @@ public record Fraction(int numerator, int denominator) {
     }
 
     public Fraction div(Fraction fraction) {
-        if (fraction.numerator == 0) throw new IllegalArgumentException("Деление на ноль!");
         if (fraction.numerator < 0)
             return new Fraction(numerator * (- fraction.denominator), denominator * (- fraction.numerator));
         return new Fraction(numerator * fraction.denominator, denominator * fraction.numerator);

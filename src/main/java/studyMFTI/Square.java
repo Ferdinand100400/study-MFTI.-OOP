@@ -3,8 +3,8 @@ package studyMFTI;
 // Задача 1.5.8
 // Задача 1.6.3
 public class Square {
-    Point leftTopPoint;
-    int lengthSide;
+    private Point leftTopPoint;
+    private int lengthSide;
 
     public Square(Point pointLeftTop, int lengthSide) {
         this.leftTopPoint = pointLeftTop;

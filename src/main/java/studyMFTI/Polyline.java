@@ -1,5 +1,7 @@
 package studyMFTI;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 // Задача 1.4.3
 // Задача 1.5.7
 public class Polyline {
+    @Getter
     private List<Point> points;
 
     public Polyline() {
@@ -42,11 +45,6 @@ public class Polyline {
     public void setPointLink(int index, Point point, Polyline link) {
         setPoint(index, point);
         link.setPoint(index,point);
-    }
-
-    public List<Point> getPoints() {
-        if (points == null) throw new IllegalArgumentException();
-        return points;
     }
 
     public void addPoints(Point...points) {

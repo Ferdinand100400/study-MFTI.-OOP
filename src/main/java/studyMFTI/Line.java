@@ -1,12 +1,15 @@
 package studyMFTI;
 
 
+import lombok.Getter;
+
 import static java.lang.Math.*;
 
 // Задача 1.2.1
 // Задача 1.4.2
 // Задача 1.5.3
 // Задача 1.6.6
+@Getter
 public class Line {
     private Point startPoint;
     private Point endPoint;
@@ -17,8 +20,7 @@ public class Line {
     }
 
     public Line(int x1, int y1, int x2, int y2) {
-        startPoint = new Point(x1, y1);
-        endPoint = new Point(x2, y2);
+        this(new Point(x1, y1), new Point(x2, y2));
     }
 
     @Override
@@ -33,15 +35,6 @@ public class Line {
     public void setEndPoint(Point endPoint) {
         this.endPoint = new Point(endPoint.getX(), endPoint.getY());
     }
-
-    public Point getStartPoint() {
-        return new Point(startPoint.getX(), startPoint.getY());
-    }
-
-    public Point getEndPoint() {
-        return new Point(endPoint.getX(), endPoint.getY());
-    }
-
     public int length() {
         return (int) abs(sqrt(pow(startPoint.getX() - endPoint.getX(), 2) + pow(startPoint.getY() - endPoint.getY(), 2)));
 

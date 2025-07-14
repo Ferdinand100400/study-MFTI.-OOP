@@ -1,12 +1,13 @@
 package studyMFTI;
 
-// Задача 1.5.2
-public class Cat {
-    private String name;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    public Cat(String name) {
-        this.name = name;
-    }
+// Задача 1.5.2
+@AllArgsConstructor
+public class Cat {
+    @Getter
+    private String name;
 
     @Override
     public String toString() {

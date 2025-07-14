@@ -9,25 +9,17 @@ import java.util.List;
 // Задача 1.4.7
 // Задача 1.5.6
 // Задача 1.6.8
-@Getter
 public class Student {
+    @Getter
     private final String name;
+    @Getter
     private List<Integer> marks;
+    private static final int MIN_GRADE = 2;
+    private static final int MAX_GRADE = 5;
 
     public Student(String name, int...marks) {
         this.name = name;
         this.setMarks(marks);
-    }
-
-    @Override
-    public String toString() {
-        if (marks == null) return name + ": []";
-        String res = name + ": [";
-        for (int i = 0; i < marks.size() - 1; i++) {
-            res += marks.get(i) + ",";
-        }
-        res += marks.get(marks.size() - 1) + "]";
-        return res;
     }
 
     public void setMarks(int...marks) {
@@ -39,7 +31,7 @@ public class Student {
     public void setMarksIndex(int index, int mark) {
         if (index > marks.size()) throw new IllegalArgumentException("индекс больше количества оценок");
         if (index < 0) throw new IllegalArgumentException("индекс не может быть отрицательным");
-        if (mark < 2 || mark > 5) throw new IllegalArgumentException("Оценка должна быть от 2 до 5");
+        if (mark < MIN_GRADE || mark > MAX_GRADE) throw new IllegalArgumentException("Оценка должна быть от 2 до 5");
         if (index == marks.size()) this.marks.add(mark);
         this.marks.set(index, mark);
     }
@@ -54,6 +46,6 @@ public class Student {
     }
 
     public boolean isExcellentStudent() {
-        return ((int) this.averageMarks() == 5);
+        return ((int) this.averageMarks() == MAX_GRADE);
     }
 }
