@@ -1,5 +1,8 @@
 package studyMFTI;
 
+import studyMFTI.Point.Point;
+import studyMFTI.Polyline.Polyline;
+
 // Задача 1.5.8
 // Задача 1.6.3
 public class Square {

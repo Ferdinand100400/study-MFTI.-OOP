@@ -1,5 +1,15 @@
 package studyMFTI;
 
+import studyMFTI.Point.Point;
+import studyMFTI.Point.Point3D;
+import studyMFTI.Weapon.Automate;
+import studyMFTI.Weapon.Gun;
+import studyMFTI.City.City;
+import studyMFTI.City.CityBackWay;
+import studyMFTI.City.Way;
+import studyMFTI.Polyline.ClosedPolyline;
+import studyMFTI.Polyline.Polyline;
+
 class TestBlockTask1_1 {
     public static void testTask1() {
         Point point1 = new Point(2, 5);
@@ -412,17 +422,21 @@ class TestBlockTask1_6 {
     public static void TestTask8_1() {
         Student student = new Student("Вася", 2, 3, 5, 1);
     }
+
     public static void TestTask8_2() {
         Student student = new Student("Вася", 2, 6, 5, 5);
     }
+
     public static void TestTask8_3() {
         Student student = new Student("Вася", 2, 3, 5, 5);
         System.out.println(student.getMarks());
     }
+
     public static void TestTask8_4() {
         Student student = new Student("Вася", 2, 5, 5, 3);
         student.setMarksIndex(2, 6);
     }
+
     public static void TestTask8_5() {
         Student student = new Student("Вася", 2, 5, 5, 3);
         student.setMarksIndex(2, 2);
@@ -441,6 +455,7 @@ class TestBlockTask1_6 {
         System.out.println(cityA);
         System.out.println(cityB);
     }
+
     public static void TestTask9_2() {
         City cityA = new City("A");
         City cityB = new City("B");
@@ -473,43 +488,52 @@ class TestBlockTask1_6 {
 
 }
 
+class TestBlockTest2_1 {
+    public static void Task2() {
+        Point point1 = new Point(1, 4);
+        Point point2 = new Point(5, 1);
+        Point point3 = new Point(6, 2);
+        Point point4 = new Point(10, 4);
+        ClosedPolyline closedPolyLine = new ClosedPolyline(point1, point2, point3, point4);
+        Polyline polyLine = new Polyline(point1, point2, point3, point4);
+        System.out.println("Длина замкнутой линии: " + closedPolyLine.length());
+        System.out.println("Длина обычной линии: " + polyLine.length());
+        System.out.println("Разница линий должна быть - " + new Line(point1, point4).length());
+    }
+    public static void Task3() {
+        City cityA = new City("A");
+        CityBackWay cityB = new CityBackWay("B");
+        City cityC = new City("C");
+        cityB.setWays(new Way(cityA, 5), new Way(cityC, 10));
+        System.out.println(cityA);
+        System.out.println(cityB);
+        System.out.println(cityC);
+    }
+
+    public static void Task4_1() {
+        Automate automate = new Automate();
+        automate.shoot();
+    }
+    public static void Task4_2() {
+        Automate automate = new Automate(4);
+        automate.setCount(6);
+        automate.shoot(3);
+    }
+    public static void Task4_3() {
+        Automate automate = new Automate(4, 5);
+        automate.setCount(6);
+        automate.shoot();
+    }
+
+    public static void Task5() {
+        Point3D point3D = new Point3D(1,2,3);
+        System.out.println(point3D);
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-//        TestBlockTask1_1.testTask1();
-//        TestBlockTask1_1.testTask4();
-//        TestBlockTask1_1.testTask5();
+        TestBlockTest2_1.Task5();
 
-//        TestBlockTask1_2.testTask1();
-
-//        TestBlockTask1_3.testTask2();
-//        TestBlockTask1_3.testTask3();
-//        TestBlockTask1_3.testTask4();
-
-//        TestBlockTask1_4.testTask1();
-//        TestBlockTask1_4.testTask2();
-//        TestBlockTask1_4.testTask3();
-//        TestBlockTask1_4.testTask4();
-//        TestBlockTask1_4.testTask5();
-//        TestBlockTask1_4.testTask6();
-//        TestBlockTask1_4.testTask7();
-
-//        TestBlockTask1_5.testTask1();
-//        TestBlockTask1_5.testTask2();
-//        TestBlockTask1_5.testTask3();
-//        TestBlockTask1_4.testTask6();
-//        TestBlockTask1_5.testTask5();
-//        TestBlockTask1_5.testTask6();
-//        TestBlockTask1_5.testTask7();
-//        TestBlockTask1_5.testTask8();
-
-//        TestBlockTask1_6.TestTask1();
-//        TestBlockTask1_6.TestTask2_6();
-//        TestBlockTask1_6.TestTask3_2();
-//        TestBlockTask1_6.TestTask4_5();
-//        TestBlockTask1_6.TestTask5();
-//        TestBlockTask1_6.TestTask6();
-//        TestBlockTask1_6.TestTask8_5();
-//        TestBlockTask1_6.TestTask9_2();
-//        TestBlockTask1_6.TestTask10();
     }
 }

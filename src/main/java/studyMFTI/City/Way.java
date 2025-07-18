@@ -1,6 +1,7 @@
-package studyMFTI;
+package studyMFTI.City;
 
 import lombok.Data;
+import studyMFTI.City.City;
 
 // Задача 1.3.3
 // Задача 1.6.9

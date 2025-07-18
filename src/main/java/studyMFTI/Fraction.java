@@ -2,6 +2,7 @@ package studyMFTI;
 
 // Задача 1.5.5
 // Задача 1.6.4
+// Задача 2.1.1
 public record Fraction(int numerator, int denominator) {
 
     public Fraction {

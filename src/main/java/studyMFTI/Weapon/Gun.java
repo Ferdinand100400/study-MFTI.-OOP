@@ -1,4 +1,4 @@
-package studyMFTI;
+package studyMFTI.Weapon;
 
 import lombok.Getter;
 

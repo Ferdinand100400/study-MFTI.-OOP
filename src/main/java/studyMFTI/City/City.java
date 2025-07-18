@@ -1,4 +1,6 @@
-package studyMFTI;
+package studyMFTI.City;
+
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +8,7 @@ import java.util.List;
 // Задача 1.3.3
 // Задача 1.4.8
 // Задача 1.6.9
+@Getter
 public class City {
     private final String name;
     private List<Way> ways;
@@ -28,9 +31,6 @@ public class City {
         res += ways.get(ways.size() - 1) + "}";
         return res;
     }
-    public String getName() {
-        return name;
-    }
 
     public void setWays(Way...ways) {
         if (ways.length > 0) this.ways = new ArrayList<>();
@@ -50,9 +50,12 @@ public class City {
         if (index == this.ways.size()) this.ways.add(way);
         this.ways.set(index, way);
     }
+    public void addWay(Way way) {
+        this.setWay(this.ways.size(), way);
+    }
 
     public void deleteWay(int index) {
-        if (index > this.ways.size()) throw new IllegalArgumentException("Индекс больше количества путей");
+        if (index > this.ways.size() - 1) throw new IllegalArgumentException("Индекс больше количества путей");
         if (index < 0) throw new IllegalArgumentException("Индекс не может быть отрицательным");
         this.ways.remove(index);
     }

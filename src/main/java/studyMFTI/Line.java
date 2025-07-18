@@ -2,6 +2,7 @@ package studyMFTI;
 
 
 import lombok.Getter;
+import studyMFTI.Point.Point;
 
 import static java.lang.Math.*;
 
