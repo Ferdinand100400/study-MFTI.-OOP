@@ -1,12 +1,20 @@
 package studyMFTI;
 
+import lombok.Getter;
+
 // Задача 1.5.5
 // Задача 1.6.4
 // Задача 2.1.1
-public record Fraction(int numerator, int denominator) {
+// Задача 2.2.2
+@Getter
+public class Fraction extends Number {
+    private final int numerator;
+    private final int denominator;
 
-    public Fraction {
+    public Fraction(int numerator, int denominator) {
+        this.numerator = numerator;
         if (denominator < 0) throw new IllegalArgumentException("Знаменатель не может быть отрицательным!");
+        this.denominator = denominator;
     }
 
     @Override
@@ -22,6 +30,7 @@ public record Fraction(int numerator, int denominator) {
         int numerator2 = fraction.numerator * this.denominator;
         return new Fraction(numerator1 + numerator2, denominator);
     }
+
     public Fraction sum(int numbers) {
         return this.sum(new Fraction(numbers, 1));
     }
@@ -49,11 +58,31 @@ public record Fraction(int numerator, int denominator) {
 
     public Fraction div(Fraction fraction) {
         if (fraction.numerator < 0)
-            return new Fraction(numerator * (- fraction.denominator), denominator * (- fraction.numerator));
+            return new Fraction(numerator * (-fraction.denominator), denominator * (-fraction.numerator));
         return new Fraction(numerator * fraction.denominator, denominator * fraction.numerator);
     }
 
     public Fraction div(int number) {
         return this.div(new Fraction(number, 1));
+    }
+
+    @Override
+    public int intValue() {
+        return numerator / denominator;
+    }
+
+    @Override
+    public long longValue() {
+        return (long) numerator / denominator;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) numerator / denominator;
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) numerator / denominator;
     }
 }

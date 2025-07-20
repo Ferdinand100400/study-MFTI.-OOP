@@ -1,7 +1,14 @@
 package studyMFTI;
 
+import studyMFTI.Bird.Cuckoo;
+import studyMFTI.Bird.Parrot;
+import studyMFTI.Bird.Sparrow;
 import studyMFTI.Point.Point;
 import studyMFTI.Point.Point3D;
+import studyMFTI.Points.Point1D;
+import studyMFTI.Shape.Circle;
+import studyMFTI.Shape.Rectangle;
+import studyMFTI.Shape.Triangle;
 import studyMFTI.Weapon.Automate;
 import studyMFTI.Weapon.Gun;
 import studyMFTI.City.City;
@@ -9,6 +16,7 @@ import studyMFTI.City.CityBackWay;
 import studyMFTI.City.Way;
 import studyMFTI.Polyline.ClosedPolyline;
 import studyMFTI.Polyline.Polyline;
+import studyMFTI.Weapon.Weapon;
 
 class TestBlockTask1_1 {
     public static void testTask1() {
@@ -511,7 +519,9 @@ class TestBlockTest2_1 {
     }
 
     public static void Task4_1() {
-        Automate automate = new Automate();
+        Automate automate = new Automate(4);
+        automate.setCount(10);
+        System.out.println(automate.getCount());
         automate.shoot();
     }
     public static void Task4_2() {
@@ -531,9 +541,70 @@ class TestBlockTest2_1 {
     }
 }
 
+class TestBlockTask2_2 {
+    public static void Task2() {
+        Fraction fraction = new Fraction(-5, 1);
+        Fraction fraction1 = fraction.sum(6);
+        fraction1 = fraction1.div(fraction);
+        fraction1 = fraction1.sum(-1);
+        System.out.println(fraction1);
+        System.out.println(fraction1.intValue());
+        System.out.println(fraction1.longValue());
+        System.out.println(fraction1.doubleValue());
+        System.out.println(fraction1.floatValue());
+    }
+    public static void Task3() {
+        Sparrow sparrow = new Sparrow();
+        sparrow.sing();
+        Cuckoo cuckoo = new Cuckoo();
+        cuckoo.sing();
+        Parrot parrot = new Parrot("Я умею говорить!");
+        parrot.sing();
+    }
+    public static void Task4_1() {
+        Circle circle = new Circle(10);
+        System.out.println(circle.square());
+    }
+    public static void Task4_2() {
+        studyMFTI.Shape.Square square = new studyMFTI.Shape.Square(3);
+        square.setLengthB(1);
+        square.setLength(2);
+        System.out.println(square.getLengthA());
+        System.out.println(square.getLengthB());
+        System.out.println(square.square());
+    }
+    public static void Task4_3() {
+        Rectangle rectangle = new Rectangle(4, 4);
+        rectangle.setLengthA(2);
+        System.out.println(rectangle.getLengthA());
+        System.out.println(rectangle.getLengthB());
+        System.out.println(rectangle.square());
+    }
+    public static void Task4_4() {
+        Triangle triangle = new Triangle(2,2,3);
+        triangle.setLengthA(3);
+        System.out.println(triangle.getLengthA());
+        System.out.println(triangle.getLengthB());
+        System.out.println(triangle.getLengthC());
+        System.out.println(triangle.square());
+    }
+    public static void Task5_1() {
+        Point1D point1D = new Point1D(4);
+        point1D.setSize(6);
+        point1D.setColor("Red");
+        System.out.println(point1D);
+    }
+    public static void Task5_2() {
+        studyMFTI.Points.Point3D point3D = new studyMFTI.Points.Point3D(4, 7,2);
+        point3D.setSize(6);
+        point3D.setColor("Red");
+        System.out.println(point3D);
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        TestBlockTest2_1.Task5();
+        TestBlockTask2_2.Task5_2();
 
     }
 }

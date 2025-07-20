@@ -1,7 +1,10 @@
 package studyMFTI.Weapon;
 
+import lombok.Getter;
+
 // Задача 2.1.4
 public class Automate extends Gun{
+    @Getter
     private final int rateOfFire;
 
     public Automate(int maxCount, int rateOfFire) {
