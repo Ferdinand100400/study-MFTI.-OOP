@@ -1,7 +1,8 @@
-package studyMFTI;
+package studyMFTI.Line;
 
 
 import lombok.Getter;
+import studyMFTI.InterfaceLength;
 import studyMFTI.Point.Point;
 
 import static java.lang.Math.*;
@@ -10,8 +11,9 @@ import static java.lang.Math.*;
 // Задача 1.4.2
 // Задача 1.5.3
 // Задача 1.6.6
+// Задача 2.3.5
 @Getter
-public class Line {
+public class Line implements InterfaceLength {
     private Point startPoint;
     private Point endPoint;
 
@@ -36,6 +38,7 @@ public class Line {
     public void setEndPoint(Point endPoint) {
         this.endPoint = new Point(endPoint.getX(), endPoint.getY());
     }
+    @Override
     public int length() {
         return (int) abs(sqrt(pow(startPoint.getX() - endPoint.getX(), 2) + pow(startPoint.getY() - endPoint.getY(), 2)));
 

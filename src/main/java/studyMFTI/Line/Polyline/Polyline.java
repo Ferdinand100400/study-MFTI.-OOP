@@ -1,7 +1,9 @@
-package studyMFTI.Polyline;
+package studyMFTI.Line.Polyline;
 
 import lombok.Getter;
-import studyMFTI.Line;
+import studyMFTI.InterfaceLength;
+import studyMFTI.InterfacePolyline;
+import studyMFTI.Line.Line;
 import studyMFTI.Point.Point;
 
 import java.util.ArrayList;
@@ -12,7 +14,8 @@ import java.util.List;
 // Задача 1.4.3
 // Задача 1.5.7
 // Задача 2.1.2
-public class Polyline {
+// Задача 2.3.5
+public class Polyline implements InterfaceLength {
     @Getter
     private List<Point> points;
 
@@ -59,6 +62,7 @@ public class Polyline {
         this.points.addAll(points);
     }
 
+    @Override
     public int length() {
         int res = 0;
         for (int i = 0; i < points.size() - 1; i++) {

@@ -3,19 +3,26 @@ package studyMFTI;
 import studyMFTI.Bird.Cuckoo;
 import studyMFTI.Bird.Parrot;
 import studyMFTI.Bird.Sparrow;
+import studyMFTI.Line.Line;
+import studyMFTI.MeowAnimals.Cat;
+import studyMFTI.MeowAnimals.Dolphin;
+import studyMFTI.MeowAnimals.MeowAnimals;
 import studyMFTI.Point.Point;
 import studyMFTI.Point.Point3D;
 import studyMFTI.Points.Point1D;
 import studyMFTI.Shape.Circle;
 import studyMFTI.Shape.Rectangle;
 import studyMFTI.Shape.Triangle;
+import studyMFTI.Student.Rule1Or0;
+import studyMFTI.Student.RuleEvenNumber;
+import studyMFTI.Student.Student;
 import studyMFTI.Weapon.Automate;
 import studyMFTI.Weapon.Gun;
 import studyMFTI.City.City;
 import studyMFTI.City.CityBackWay;
 import studyMFTI.City.Way;
-import studyMFTI.Polyline.ClosedPolyline;
-import studyMFTI.Polyline.Polyline;
+import studyMFTI.Line.Polyline.ClosedPolyline;
+import studyMFTI.Line.Polyline.Polyline;
 import studyMFTI.Weapon.Weapon;
 
 class TestBlockTask1_1 {
@@ -508,6 +515,7 @@ class TestBlockTest2_1 {
         System.out.println("Длина обычной линии: " + polyLine.length());
         System.out.println("Разница линий должна быть - " + new Line(point1, point4).length());
     }
+
     public static void Task3() {
         City cityA = new City("A");
         CityBackWay cityB = new CityBackWay("B");
@@ -524,11 +532,13 @@ class TestBlockTest2_1 {
         System.out.println(automate.getCount());
         automate.shoot();
     }
+
     public static void Task4_2() {
         Automate automate = new Automate(4);
         automate.setCount(6);
         automate.shoot(3);
     }
+
     public static void Task4_3() {
         Automate automate = new Automate(4, 5);
         automate.setCount(6);
@@ -536,7 +546,7 @@ class TestBlockTest2_1 {
     }
 
     public static void Task5() {
-        Point3D point3D = new Point3D(1,2,3);
+        Point3D point3D = new Point3D(1, 2, 3);
         System.out.println(point3D);
     }
 }
@@ -553,6 +563,7 @@ class TestBlockTask2_2 {
         System.out.println(fraction1.doubleValue());
         System.out.println(fraction1.floatValue());
     }
+
     public static void Task3() {
         Sparrow sparrow = new Sparrow();
         sparrow.sing();
@@ -561,10 +572,12 @@ class TestBlockTask2_2 {
         Parrot parrot = new Parrot("Я умею говорить!");
         parrot.sing();
     }
+
     public static void Task4_1() {
         Circle circle = new Circle(10);
         System.out.println(circle.square());
     }
+
     public static void Task4_2() {
         studyMFTI.Shape.Square square = new studyMFTI.Shape.Square(3);
         square.setLengthB(1);
@@ -573,6 +586,7 @@ class TestBlockTask2_2 {
         System.out.println(square.getLengthB());
         System.out.println(square.square());
     }
+
     public static void Task4_3() {
         Rectangle rectangle = new Rectangle(4, 4);
         rectangle.setLengthA(2);
@@ -580,31 +594,102 @@ class TestBlockTask2_2 {
         System.out.println(rectangle.getLengthB());
         System.out.println(rectangle.square());
     }
+
     public static void Task4_4() {
-        Triangle triangle = new Triangle(2,2,3);
+        Triangle triangle = new Triangle(2, 2, 3);
         triangle.setLengthA(3);
         System.out.println(triangle.getLengthA());
         System.out.println(triangle.getLengthB());
         System.out.println(triangle.getLengthC());
         System.out.println(triangle.square());
     }
+
     public static void Task5_1() {
         Point1D point1D = new Point1D(4);
         point1D.setSize(6);
         point1D.setColor("Red");
         System.out.println(point1D);
     }
+
     public static void Task5_2() {
-        studyMFTI.Points.Point3D point3D = new studyMFTI.Points.Point3D(4, 7,2);
+        studyMFTI.Points.Point3D point3D = new studyMFTI.Points.Point3D(4, 7, 2);
         point3D.setSize(6);
         point3D.setColor("Red");
         System.out.println(point3D);
     }
 }
 
+class TestBlockTask2_3 {
+    public static void Task1_1() {
+        Fraction fraction = new Fraction(3, 5);
+        System.out.println(Methods.sum(2, fraction, 2.3));
+    }
+
+    public static void Task1_2() {
+        Fraction fraction1 = new Fraction(49, 12);
+        Fraction fraction2 = new Fraction(3, 2);
+        System.out.println(Methods.sum(3.6, fraction1, 3, fraction2));
+    }
+
+    public static void Task1_3() {
+        Fraction fraction = new Fraction(1, 3);
+        System.out.println(Methods.sum(fraction, 1));
+    }
+
+    public static void Task2() {
+        Methods.birds(new Sparrow(), new Cuckoo(), new Sparrow(), new Parrot("Я умею говорить!"), new Sparrow());
+    }
+
+    public static void Task3() {
+        System.out.println(Methods.generalSquare(new Rectangle(4, 4), new Circle(10), new studyMFTI.Shape.Square(5)));
+    }
+
+    public static void Task4() {
+        MeowAnimals.meow(new Cat("Барсик"), new Dolphin("Кузя"), new Cat("Тузик"));
+    }
+
+    public static void Task5() {
+        Point point1 = new Point(1, 4);
+        Point point2 = new Point(5, 1);
+        Point point3 = new Point(6, 2);
+        Point point4 = new Point(10, 4);
+        Line line = new Line(point2, point4);
+        ClosedPolyline closedPolyLine = new ClosedPolyline(point1, point2, point3, point4);
+        Polyline polyLine = new Polyline(point1, point2, point3, point4);
+        System.out.println(InterfaceLength.generalLength(line, closedPolyLine, polyLine));
+    }
+
+    public static void Task7() {
+        Square square1 = new Square(0, 0, 10);
+        Square square2 = new Square(10, 0, 5);
+        System.out.println(InterfacePolyline.generalPolyline(square1, square2));
+    }
+
+    public static void Task8() {
+        Weapon gun = new Gun(10, 2);
+        Weapon automate = new Automate(10, 5);
+        Shooter shooter1 = new Shooter("Владимир");
+        Shooter shooter2 = new Shooter("Евгений");
+        shooter2.setWeapon(gun);
+        Shooter shooter3 = new Shooter("Сергей");
+        shooter3.setWeapon(automate);
+        shooter1.shoot();
+        System.out.println();
+        shooter2.shoot();
+        System.out.println();
+        shooter3.shoot();
+    }
+
+    public static void Task9() {
+        Student student1 = new Student("Вася", new Rule1Or0(), 1, 0, 0, 1);
+        System.out.println(student1.averageMarks());
+        Student student2 = new Student("Петя", new RuleEvenNumber(), 0, 6, 82, 18);
+        System.out.println(student2.averageMarks());
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask2_2.Task5_2();
 
     }
 }

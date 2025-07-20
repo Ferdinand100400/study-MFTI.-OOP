@@ -1,11 +1,12 @@
-package studyMFTI;
+package studyMFTI.MeowAnimals;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 // Задача 1.5.2
+// Задача 2.3.4
 @AllArgsConstructor
-public class Cat {
+public class Cat implements MeowAnimals {
     @Getter
     private String name;
 
@@ -23,6 +24,7 @@ public class Cat {
         System.out.println("мяу!");
     }
 
+    @Override
     public void meow() {
         meow(1);
     }

@@ -1,12 +1,15 @@
 package studyMFTI;
 
+import studyMFTI.Line.Polyline.ClosedPolyline;
 import studyMFTI.Point.Point;
-import studyMFTI.Polyline.Polyline;
+import studyMFTI.Line.Polyline.Polyline;
 
 // Задача 1.5.8
 // Задача 1.6.3
-public class Square {
-    private Point leftTopPoint;
+// Задача 2.3.6
+// Задача 2.3.7
+public class Square implements InterfacePolyline {
+    private final Point leftTopPoint;
     private int lengthSide;
 
     public Square(Point pointLeftTop, int lengthSide) {
@@ -32,10 +35,11 @@ public class Square {
         this.lengthSide = lengthSide;
     }
 
-    public Polyline getPolyline() {
+    @Override
+    public ClosedPolyline getPolyline() {
         int xRight = leftTopPoint.getX() + lengthSide;
         int yDown = leftTopPoint.getY() - lengthSide;
-        return new Polyline(leftTopPoint, new Point(xRight, leftTopPoint.getY()),
+        return new ClosedPolyline(leftTopPoint, new Point(xRight, leftTopPoint.getY()),
                 new Point(xRight, yDown), new Point(leftTopPoint.getX(), yDown), leftTopPoint);
     }
 }

@@ -1,6 +1,6 @@
-package studyMFTI.Polyline;
+package studyMFTI.Line.Polyline;
 
-import studyMFTI.Line;
+import studyMFTI.Line.Line;
 import studyMFTI.Point.Point;
 
 // Задача 2.1.2

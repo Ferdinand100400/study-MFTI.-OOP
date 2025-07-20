@@ -1,4 +1,4 @@
-package studyMFTI;
+package studyMFTI.Student;
 
 import lombok.Getter;
 
@@ -9,16 +9,24 @@ import java.util.List;
 // Задача 1.4.7
 // Задача 1.5.6
 // Задача 1.6.8
+// Задача 2.3.9
 public class Student {
     @Getter
     private final String name;
     @Getter
     private List<Integer> marks;
-    private static final int MIN_GRADE = 2;
-    private static final int MAX_GRADE = 5;
+    private Rule rule;
+//    private static final int MIN_GRADE = 2;
+//    private static final int MAX_GRADE = 5;
 
     public Student(String name, int...marks) {
         this.name = name;
+        this.rule = new NotRule();
+        this.setMarks(marks);
+    }
+    public Student(String name, Rule rule, int...marks) {
+        this.name = name;
+        this.rule = rule;
         this.setMarks(marks);
     }
 
@@ -31,7 +39,7 @@ public class Student {
     public void setMarksIndex(int index, int mark) {
         if (index > marks.size()) throw new IllegalArgumentException("индекс больше количества оценок");
         if (index < 0) throw new IllegalArgumentException("индекс не может быть отрицательным");
-        if (mark < MIN_GRADE || mark > MAX_GRADE) throw new IllegalArgumentException("Оценка должна быть от 2 до 5");
+        if (!this.rule.isCheck(mark)) throw new IllegalArgumentException("Оценка не удовлетворяет правилу");
         if (index == marks.size()) this.marks.add(mark);
         this.marks.set(index, mark);
     }
@@ -46,6 +54,6 @@ public class Student {
     }
 
     public boolean isExcellentStudent() {
-        return ((int) this.averageMarks() == MAX_GRADE);
+        return ((int) this.averageMarks() == this.rule.maxMark());
     }
 }
