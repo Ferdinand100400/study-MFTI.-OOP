@@ -7,7 +7,7 @@ import lombok.Getter;
 // Задача 2.1.1
 // Задача 2.2.2
 @Getter
-public class Fraction extends Number {
+public final class Fraction extends Number {
     private final int numerator;
     private final int denominator;
 

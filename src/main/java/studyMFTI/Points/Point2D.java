@@ -12,7 +12,7 @@ public class Point2D extends Point1D {
 
     @Override
     public String toString() {
-        return "{" + super.getX() + ";" + y + "}" + ", color: " + super.getColor() + ", size: " + super.getSize();
+        return "{" + super.getX() + ";" + y + "}";
     }
 
 }

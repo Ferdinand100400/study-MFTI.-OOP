@@ -1,5 +1,6 @@
 package studyMFTI;
 
+import studyMFTI.Bird.Birds;
 import studyMFTI.Bird.Cuckoo;
 import studyMFTI.Bird.Parrot;
 import studyMFTI.Bird.Sparrow;
@@ -9,8 +10,11 @@ import studyMFTI.MeowAnimals.Dolphin;
 import studyMFTI.MeowAnimals.MeowAnimals;
 import studyMFTI.Point.Point;
 import studyMFTI.Point.Point3D;
+import studyMFTI.Points.Color;
 import studyMFTI.Points.Point1D;
+import studyMFTI.Points.Size;
 import studyMFTI.Shape.Circle;
+import studyMFTI.Shape.GeneralSquare;
 import studyMFTI.Shape.Rectangle;
 import studyMFTI.Shape.Triangle;
 import studyMFTI.Student.Rule1Or0;
@@ -606,42 +610,46 @@ class TestBlockTask2_2 {
 
     public static void Task5_1() {
         Point1D point1D = new Point1D(4);
-        point1D.setSize(6);
-        point1D.setColor("Red");
+        point1D.addAttributeLine(new Color("Red"));
+        point1D.addAttributeLine(new Size(6));
         System.out.println(point1D);
+        System.out.println(point1D.getAttributeLine().get(0).getName() + ": " + point1D.getAttributeLine().get(0).getValue());
+        System.out.println(point1D.getAttributeLine().get(1).getName() + ": " + point1D.getAttributeLine().get(1).getValue());
     }
 
     public static void Task5_2() {
         studyMFTI.Points.Point3D point3D = new studyMFTI.Points.Point3D(4, 7, 2);
-        point3D.setSize(6);
-        point3D.setColor("Red");
+        point3D.addAttributeLine(new Color("Red"));
+        point3D.addAttributeLine(new Size(6));
         System.out.println(point3D);
+        System.out.println(point3D.getAttributeLine().get(0).getName() + ": " + point3D.getAttributeLine().get(0).getValue());
+        System.out.println(point3D.getAttributeLine().get(1).getName() + ": " + point3D.getAttributeLine().get(1).getValue());
     }
 }
 
 class TestBlockTask2_3 {
     public static void Task1_1() {
         Fraction fraction = new Fraction(3, 5);
-        System.out.println(Methods.sum(2, fraction, 2.3));
+        System.out.println(Sum.sum(2, fraction, 2.3));
     }
 
     public static void Task1_2() {
         Fraction fraction1 = new Fraction(49, 12);
         Fraction fraction2 = new Fraction(3, 2);
-        System.out.println(Methods.sum(3.6, fraction1, 3, fraction2));
+        System.out.println(Sum.sum(3.6, fraction1, 3, fraction2));
     }
 
     public static void Task1_3() {
         Fraction fraction = new Fraction(1, 3);
-        System.out.println(Methods.sum(fraction, 1));
+        System.out.println(Sum.sum(fraction, 1));
     }
 
     public static void Task2() {
-        Methods.birds(new Sparrow(), new Cuckoo(), new Sparrow(), new Parrot("Я умею говорить!"), new Sparrow());
+        Birds.birds(new Sparrow(), new Cuckoo(), new Sparrow(), new Parrot("Я умею говорить!"), new Sparrow());
     }
 
     public static void Task3() {
-        System.out.println(Methods.generalSquare(new Rectangle(4, 4), new Circle(10), new studyMFTI.Shape.Square(5)));
+        System.out.println(GeneralSquare.generalSquare(new Rectangle(4, 4), new Circle(10), new studyMFTI.Shape.Square(5)));
     }
 
     public static void Task4() {
@@ -690,6 +698,5 @@ class TestBlockTask2_3 {
 
 public class Main {
     public static void main(String[] args) {
-
     }
 }

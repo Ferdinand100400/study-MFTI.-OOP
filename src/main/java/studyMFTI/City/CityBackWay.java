@@ -12,6 +12,7 @@ public class CityBackWay extends City {
     @Override
     public void setWay(int index, Way way) {
         super.setWay(index, way);
-        if (way != null) way.getCity().addWay(new Way(this, way.getPrice()));
+        if (way == null || way.getCity().getWays().contains(way)) return;
+        way.getCity().addWay(new Way(this, way.getPrice()));
     }
 }
