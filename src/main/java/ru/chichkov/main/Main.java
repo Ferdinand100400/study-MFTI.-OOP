@@ -1,39 +1,39 @@
 package ru.chichkov.main;
 
-import ru.chichkov.Weapon.Shooter;
-import ru.chichkov.animals.Bird.Birds;
-import ru.chichkov.animals.Bird.Cuckoo;
-import ru.chichkov.animals.Bird.Parrot;
-import ru.chichkov.animals.Bird.Sparrow;
-import ru.chichkov.employees.Department;
-import ru.chichkov.employees.Employee;
+import ru.chichkov.weapon.Shooter;
+import ru.chichkov.animal.bird.Birds;
+import ru.chichkov.animal.bird.Cuckoo;
+import ru.chichkov.animal.bird.Parrot;
+import ru.chichkov.animal.bird.Sparrow;
+import ru.chichkov.employee.Department;
+import ru.chichkov.employee.Employee;
 import ru.chichkov.geometry.InterfaceLength;
 import ru.chichkov.geometry.InterfacePolyline;
-import ru.chichkov.geometry.Points.Point3D;
+import ru.chichkov.geometry.points.Point3D;
 import ru.chichkov.geometry.Line;
 import ru.chichkov.geometry.Square;
-import ru.chichkov.animals.MeowAnimals.Cat;
-import ru.chichkov.animals.MeowAnimals.Dolphin;
-import ru.chichkov.animals.MeowAnimals.MeowAnimals;
-import ru.chichkov.geometry.Point.Point;
-import ru.chichkov.geometry.Points.Color;
-import ru.chichkov.geometry.Points.Point1D;
-import ru.chichkov.geometry.Points.Size;
-import ru.chichkov.geometry.Shape.Circle;
-import ru.chichkov.geometry.Shape.GeneralSquare;
-import ru.chichkov.geometry.Shape.Rectangle;
-import ru.chichkov.geometry.Shape.Triangle;
-import ru.chichkov.Student.Rule1Or0;
-import ru.chichkov.Student.RuleEvenNumber;
-import ru.chichkov.Student.Student;
-import ru.chichkov.Weapon.Automate;
-import ru.chichkov.Weapon.Gun;
-import ru.chichkov.City.City;
-import ru.chichkov.City.CityBackWay;
-import ru.chichkov.City.Way;
-import ru.chichkov.geometry.Polyline.ClosedPolyline;
-import ru.chichkov.geometry.Polyline.Polyline;
-import ru.chichkov.Weapon.Weapon;
+import ru.chichkov.animal.meow.Cat;
+import ru.chichkov.animal.meow.Dolphin;
+import ru.chichkov.animal.meow.MeowAnimals;
+import ru.chichkov.geometry.point.Point;
+import ru.chichkov.geometry.points.Color;
+import ru.chichkov.geometry.points.Point1D;
+import ru.chichkov.geometry.points.Size;
+import ru.chichkov.geometry.shape.Circle;
+import ru.chichkov.geometry.shape.GeneralSquare;
+import ru.chichkov.geometry.shape.Rectangle;
+import ru.chichkov.geometry.shape.Triangle;
+import ru.chichkov.student.Rule1Or0;
+import ru.chichkov.student.RuleEvenNumber;
+import ru.chichkov.student.Student;
+import ru.chichkov.weapon.Automate;
+import ru.chichkov.weapon.Gun;
+import ru.chichkov.city.City;
+import ru.chichkov.city.CityBackWay;
+import ru.chichkov.city.Way;
+import ru.chichkov.geometry.polyline.ClosedPolyline;
+import ru.chichkov.geometry.polyline.Polyline;
+import ru.chichkov.weapon.Weapon;
 import ru.chichkov.house.House;
 import ru.chichkov.human.Human;
 import ru.chichkov.human.Name;
@@ -564,7 +564,7 @@ class TestBlockTest2_1 {
     }
 
     public static void Task5() {
-        ru.chichkov.geometry.Point.Point3D point3D = new ru.chichkov.geometry.Point.Point3D(1, 2, 3);
+        ru.chichkov.geometry.point.Point3D point3D = new ru.chichkov.geometry.point.Point3D(1, 2, 3);
         System.out.println(point3D);
     }
 }
@@ -597,7 +597,7 @@ class TestBlockTask2_2 {
     }
 
     public static void Task4_2() {
-        ru.chichkov.geometry.Shape.Square square = new ru.chichkov.geometry.Shape.Square(3);
+        ru.chichkov.geometry.shape.Square square = new ru.chichkov.geometry.shape.Square(3);
         square.setLengthB(1);
         square.setLength(2);
         System.out.println(square.getLengthA());
@@ -663,7 +663,7 @@ class TestBlockTask2_3 {
     }
 
     public static void Task3() {
-        System.out.println(GeneralSquare.generalSquare(new Rectangle(4, 4), new Circle(10), new ru.chichkov.geometry.Shape.Square(5)));
+        System.out.println(GeneralSquare.generalSquare(new Rectangle(4, 4), new Circle(10), new ru.chichkov.geometry.shape.Square(5)));
     }
 
     public static void Task4() {
@@ -716,7 +716,7 @@ class TestBlockTask3_1 {
                 new BigInteger(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2})));
     }
     public static void Task4() {
-        System.out.println(MathMethods.pow("5", "2"));
+        System.out.println(MathMethods.myPow("5", "2"));
     }
     public static void Task5() {
         Point point = new Point(5,6);
@@ -728,5 +728,6 @@ class TestBlockTask3_1 {
 
 public class Main {
     public static void main(String[] args) {
+
     }
 }

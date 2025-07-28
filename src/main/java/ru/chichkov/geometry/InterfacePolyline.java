@@ -1,7 +1,6 @@
 package ru.chichkov.geometry;
 
-import ru.chichkov.geometry.Polyline.Polyline;
-import ru.chichkov.geometry.Square;
+import ru.chichkov.geometry.polyline.Polyline;
 
 // Задача 2.3.7
 public interface InterfacePolyline {

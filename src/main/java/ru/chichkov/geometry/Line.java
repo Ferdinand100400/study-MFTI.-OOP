@@ -2,7 +2,7 @@ package ru.chichkov.geometry;
 
 
 import lombok.Getter;
-import ru.chichkov.geometry.Point.Point;
+import ru.chichkov.geometry.point.Point;
 
 import static java.lang.Math.*;
 

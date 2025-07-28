@@ -1,5 +1,8 @@
 package ru.chichkov.math;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.Math.pow;
+
 // Задача 2.3.1
 public class MathMethods {
 
@@ -12,7 +15,7 @@ public class MathMethods {
         return res;
     }
 
-    public static int pow(String x, String y) {
-        return (int) Math.pow(Integer.parseInt(x), Integer.parseInt(y));
+    public static int myPow(String x, String y) {
+        return (int) pow(parseInt(x), parseInt(y));
     }
 }

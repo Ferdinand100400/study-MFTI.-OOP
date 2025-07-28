@@ -1,7 +1,7 @@
 package ru.chichkov.geometry;
 
-import ru.chichkov.geometry.Polyline.ClosedPolyline;
-import ru.chichkov.geometry.Point.Point;
+import ru.chichkov.geometry.polyline.ClosedPolyline;
+import ru.chichkov.geometry.point.Point;
 
 // Задача 1.5.8
 // Задача 1.6.3
