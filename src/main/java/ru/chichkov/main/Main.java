@@ -1,5 +1,7 @@
 package ru.chichkov.main;
 
+import ru.chichkov.connection.Connection;
+import ru.chichkov.exception.LossOfConnectionException;
 import ru.chichkov.weapon.Shooter;
 import ru.chichkov.animal.bird.Birds;
 import ru.chichkov.animal.bird.Cuckoo;
@@ -703,7 +705,7 @@ class TestBlockTask2_3 {
     }
 
     public static void Task9() {
-        Student student1 = new Student("Вася", new Rule1Or0(), 1, 0, 0, 1);
+        Student student1 = new Student("Вася", new Rule1Or0(), 1, 2, 0, 1);
         System.out.println(student1.averageMarks());
         Student student2 = new Student("Петя", new RuleEvenNumber(), 0, 6, 82, 18);
         System.out.println(student2.averageMarks());
@@ -726,8 +728,16 @@ class TestBlockTask3_1 {
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
+class TestBlockTask4_1 {
+    public static void Task4() throws LossOfConnectionException {
+        Connection connection = new Connection("169.00.34.01");
+        connection.close();
+        System.out.println(connection.info());
+    }
+}
 
+public class Main {
+    public static void main(String[] args) throws LossOfConnectionException {
+        TestBlockTask4_1.Task4();
     }
 }

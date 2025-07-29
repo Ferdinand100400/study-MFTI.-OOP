@@ -1,6 +1,7 @@
 package ru.chichkov.student;
 
 import lombok.Getter;
+import ru.chichkov.exception.NotCorrectMarksException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 // Задача 1.5.6
 // Задача 1.6.8
 // Задача 2.3.9
+// Задача 4.1.1
 public class Student {
     @Getter
     private final String name;
@@ -39,7 +41,7 @@ public class Student {
     public void setMarksIndex(int index, int mark) {
         if (index > marks.size()) throw new IllegalArgumentException("индекс больше количества оценок");
         if (index < 0) throw new IllegalArgumentException("индекс не может быть отрицательным");
-        if (!this.rule.isCheck(mark)) throw new IllegalArgumentException("Оценка не удовлетворяет правилу");
+        if (!this.rule.isCheck(mark)) throw new NotCorrectMarksException(this.name + "- оценка не удовлетворяет правилу");
         if (index == marks.size()) this.marks.add(mark);
         this.marks.set(index, mark);
     }
