@@ -12,12 +12,13 @@ import java.util.List;
 // Задача 1.6.8
 // Задача 2.3.9
 // Задача 4.1.1
+// Задача 4.2.3
 public class Student {
     @Getter
     private final String name;
     @Getter
     private List<Integer> marks;
-    private Rule rule;
+    private final Rule rule;
 //    private static final int MIN_GRADE = 2;
 //    private static final int MAX_GRADE = 5;
 
@@ -32,11 +33,14 @@ public class Student {
         this.setMarks(marks);
     }
 
+    public void addMarks(int...marks) {
+        for (int i = 0; i < marks.length; i++) {
+            this.setMarksIndex(this.marks.size(), marks[i]);
+        }
+    }
     public void setMarks(int...marks) {
         if (marks.length > 0) this.marks = new ArrayList<>();
-        for (int i = 0; i < marks.length; i++) {
-            this.setMarksIndex(i, marks[i]);
-        }
+        addMarks(marks);
     }
     public void setMarksIndex(int index, int mark) {
         if (index > marks.size()) throw new IllegalArgumentException("индекс больше количества оценок");
@@ -57,5 +61,17 @@ public class Student {
 
     public boolean isExcellentStudent() {
         return ((int) this.averageMarks() == this.rule.maxMark());
+    }
+
+    public void deleteMark(int index) {
+        marks.remove(index);
+    }
+    public void deleteMark() {
+        deleteMark(marks.size() - 1);
+    }
+
+    @Override
+    public String toString() {
+        return "Студент \"" + name + "\" с оценками: " + marks;
     }
 }

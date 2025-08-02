@@ -2,6 +2,8 @@ package ru.chichkov.main;
 
 import ru.chichkov.connection.Connection;
 import ru.chichkov.exception.LossOfConnectionException;
+import ru.chichkov.exception.NotCorrectMarksException;
+import ru.chichkov.student.*;
 import ru.chichkov.weapon.Shooter;
 import ru.chichkov.animal.bird.Birds;
 import ru.chichkov.animal.bird.Cuckoo;
@@ -25,9 +27,6 @@ import ru.chichkov.geometry.shape.Circle;
 import ru.chichkov.geometry.shape.GeneralSquare;
 import ru.chichkov.geometry.shape.Rectangle;
 import ru.chichkov.geometry.shape.Triangle;
-import ru.chichkov.student.Rule1Or0;
-import ru.chichkov.student.RuleEvenNumber;
-import ru.chichkov.student.Student;
 import ru.chichkov.weapon.Automate;
 import ru.chichkov.weapon.Gun;
 import ru.chichkov.city.City;
@@ -44,6 +43,10 @@ import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 class TestBlockTask1_1 {
     public static void testTask1() {
@@ -735,9 +738,66 @@ class TestBlockTask4_1 {
         System.out.println(connection.info());
     }
 }
+class TestBlockTask4_2 {
+
+    // Задача 4.2.1
+    public static void Task1() throws LossOfConnectionException {
+        Connection connection = new Connection("ermakov.edu");
+        try {
+           for (int i = 0; i < 10; i++) {
+               System.out.println(connection.info());
+           }
+        }
+        catch (LossOfConnectionException e) {
+            throw new LossOfConnectionException("Ошибка подключения!");
+        }
+        finally {
+            connection.close();
+        }
+    }
+    public static void Task2() {
+        System.out.println(MathMethods.divNumbersFromString("45", "5", "five", "3"));
+        System.out.println(MathMethods.divNumbersFromString("one", "two", "45", "5", "five", "3"));
+        System.out.println(MathMethods.divNumbersFromString("one", "two", "45", "5", "five", "3", "two", "2"));
+        System.out.println(MathMethods.divNumbersFromString("one", "two", "five"));
+    }
+
+    public static void Task3() {
+        Student student1 = new Student("Вася", new Rule0To10(), 1, 0, 1);
+        Student student2 = new Student("Петя", new RuleEvenNumber(), 0, 6, 82, 18);
+        MethodsStudent.addMarkFromStudents(student1, student2);
+        System.out.println(student1.getMarks());
+        System.out.println(student2.getMarks());
+    }
+    public static void Task4(int maxRandomMark) {
+        Random random = new Random();
+        int randomCount = random.nextInt(10);
+        List<String> constructorArgs = new ArrayList<>(randomCount);
+        List<String> addArgs = new ArrayList<>(randomCount);
+        for (int i = 0; i < randomCount; i++) {
+            char[] charsConstructor = new char[random.nextInt(10)];
+            for (int j = 0; j < charsConstructor.length; j++) {
+                charsConstructor[j] = (char) (random.nextInt(73) + 48);
+            }
+            constructorArgs.add(String.valueOf(charsConstructor));
+            addArgs.add(String.valueOf(random.nextInt(maxRandomMark)));
+        }
+//        System.out.println(constructorArgs);
+//        System.out.println(addArgs);
+        List<Student> students;
+        try {
+            students = MethodsStudent.convert(constructorArgs, addArgs);
+            System.out.println(students);
+        }
+        catch (NotCorrectMarksException e) {
+            students = MethodsStudent.convert(constructorArgs, new ArrayList<>());
+            System.out.println(students);
+        }
+    }
+}
 
 public class Main {
-    public static void main(String[] args) throws LossOfConnectionException {
-        TestBlockTask4_1.Task4();
+    public static void main(String[] args) throws LossOfConnectionException{
+        TestBlockTask4_2.Task4(15);
     }
 }
