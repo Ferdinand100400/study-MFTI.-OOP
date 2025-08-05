@@ -749,7 +749,7 @@ class TestBlockTask4_2 {
            }
         }
         catch (LossOfConnectionException e) {
-            throw new LossOfConnectionException("Ошибка подключения!");
+            throw new RuntimeException("Ошибка подключения!");
         }
         finally {
             connection.close();
@@ -782,17 +782,32 @@ class TestBlockTask4_2 {
             constructorArgs.add(String.valueOf(charsConstructor));
             addArgs.add(String.valueOf(random.nextInt(maxRandomMark)));
         }
-//        System.out.println(constructorArgs);
-//        System.out.println(addArgs);
-        List<Student> students;
+
+//        List<Student> students;
+//        try {
+//            students = MethodsStudent.convert(constructorArgs, addArgs);
+//            System.out.println(students);
+//        }
+//        catch (NotCorrectMarksException e) {
+//            students = MethodsStudent.convert(constructorArgs, new ArrayList<>());
+//            System.out.println(students);
+//        }
         try {
-            students = MethodsStudent.convert(constructorArgs, addArgs);
+            List<Student> students = MethodsStudent.convert(constructorArgs, addArgs);
             System.out.println(students);
         }
-        catch (NotCorrectMarksException e) {
-            students = MethodsStudent.convert(constructorArgs, new ArrayList<>());
-            System.out.println(students);
+        catch (RuntimeException e) {
+            StackTraceElement element = e.getStackTrace()[0];
+            if (element.getMethodName().equals("convert")) {
+                System.out.println("Не удалось создать студента");
+            } else if (element.getMethodName().equals("setMarksIndex")) {
+                List<Student> students = MethodsStudent.convert(constructorArgs, new ArrayList<>());
+                System.out.println(students);
+            } else {
+                System.out.println("Ошибка: " + Arrays.toString(e.getStackTrace()));
+            }
         }
+
     }
 }
 

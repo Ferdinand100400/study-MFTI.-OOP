@@ -31,16 +31,16 @@ public class MethodsStudent {
 
     public static List<Student> convert(List<String> constructorArgs, List<String> addArgs) {
         List<Student> students = new ArrayList<>();
-        for (int i = 0; i < constructorArgs.size(); i++) {
-            try {
-                students.add(new Student(constructorArgs.get(i), new Rule0To10()));
-            }
-            catch (Exception e) {
-                System.out.println("Студента " + constructorArgs.get(i) + " невозможно создать");
-                return new ArrayList<>();
-            }
-            if (!addArgs.isEmpty()) students.get(i).setMarks(Integer.parseInt(addArgs.get(i)));
-        }
+//        for (int i = 0; i < constructorArgs.size(); i++) {
+//            try {
+//                students.add(new Student(constructorArgs.get(i), new Rule0To10()));
+//            }
+//            catch (Exception e) {
+//                System.out.println("Студента " + constructorArgs.get(i) + " невозможно создать");
+//                return new ArrayList<>();
+//            }
+//            if (!addArgs.isEmpty()) students.get(i).setMarks(Integer.parseInt(addArgs.get(i)));
+//        }
         return students;
     }
 }
