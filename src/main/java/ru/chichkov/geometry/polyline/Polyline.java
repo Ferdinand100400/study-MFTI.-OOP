@@ -8,12 +8,14 @@ import ru.chichkov.geometry.point.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 // Задача 1.3.2
 // Задача 1.4.3
 // Задача 1.5.7
 // Задача 2.1.2
 // Задача 2.3.5
+// Задача 5.1.4
 public class Polyline implements InterfaceLength {
     @Getter
     private List<Point> points;
@@ -69,5 +71,39 @@ public class Polyline implements InterfaceLength {
             res += line.length();
         }
         return res;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Polyline polyline)) return false;
+        int k = 0;
+        if (o.getClass().getName().equals("ru.chichkov.geometry.polyline.ClosedPolyline")) k = 1;
+        if (points.size() != polyline.points.size() + k) return false;
+        for (int i = 0; i < points.size(); i++) {
+            if (k == 1) {
+                if (i == points.size() - 1 && points.get(i).equals(polyline.points.get(0))) {
+                    return true;
+                }
+                if (i == points.size() - 1) return false;
+            }
+            if (!points.get(i).equals(polyline.points.get(i))) break;
+            if (i == points.size() - 1) return true;
+        }
+        for (int i = 0; i < points.size(); i++) {
+            if (k == 1 && !points.get(0).equals(polyline.points.get(0))) return false;
+            if (i != 0 && !points.get(i).equals(polyline.points.get(polyline.points.size() - i - 1 + k))) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int sumX = 0;
+        int sumY = 0;
+        for (int i = 0; i < points.size(); i++) {
+            sumX += points.get(i).getX();
+            sumY += points.get(i).getY();
+        }
+        return Objects.hash(this.length(), sumX, sumY);
     }
 }

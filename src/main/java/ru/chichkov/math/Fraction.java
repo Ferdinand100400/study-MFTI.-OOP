@@ -2,10 +2,13 @@ package ru.chichkov.math;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 // Задача 1.5.5
 // Задача 1.6.4
 // Задача 2.1.1
 // Задача 2.2.2
+// Задача 5.1.1
 @Getter
 public final class Fraction extends Number {
     private final int numerator;
@@ -84,5 +87,17 @@ public final class Fraction extends Number {
     @Override
     public double doubleValue() {
         return (double) numerator / denominator;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fraction fraction)) return false;
+        return numerator == fraction.numerator && denominator == fraction.denominator;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerator, denominator);
     }
 }

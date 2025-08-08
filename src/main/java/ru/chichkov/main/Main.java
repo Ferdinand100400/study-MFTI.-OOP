@@ -2,7 +2,6 @@ package ru.chichkov.main;
 
 import ru.chichkov.connection.Connection;
 import ru.chichkov.exception.LossOfConnectionException;
-import ru.chichkov.exception.NotCorrectMarksException;
 import ru.chichkov.student.*;
 import ru.chichkov.weapon.Shooter;
 import ru.chichkov.animal.bird.Birds;
@@ -720,11 +719,13 @@ class TestBlockTask3_1 {
         System.out.println(MathMethods.sum(7, new Fraction(11, 3), 3.21,
                 new BigInteger(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2})));
     }
+
     public static void Task4() {
         System.out.println(MathMethods.myPow("5", "2"));
     }
+
     public static void Task5() {
-        Point point = new Point(5,6);
+        Point point = new Point(5, 6);
         java.awt.Point point2 = new java.awt.Point(4, 5);
         System.out.println(point);
         System.out.println(point2);
@@ -738,23 +739,23 @@ class TestBlockTask4_1 {
         System.out.println(connection.info());
     }
 }
+
 class TestBlockTask4_2 {
 
     // Задача 4.2.1
     public static void Task1() throws LossOfConnectionException {
         Connection connection = new Connection("ermakov.edu");
         try {
-           for (int i = 0; i < 10; i++) {
-               System.out.println(connection.info());
-           }
-        }
-        catch (LossOfConnectionException e) {
+            for (int i = 0; i < 10; i++) {
+                System.out.println(connection.info());
+            }
+        } catch (LossOfConnectionException e) {
             throw new RuntimeException("Ошибка подключения!");
-        }
-        finally {
+        } finally {
             connection.close();
         }
     }
+
     public static void Task2() {
         System.out.println(MathMethods.divNumbersFromString("45", "5", "five", "3"));
         System.out.println(MathMethods.divNumbersFromString("one", "two", "45", "5", "five", "3"));
@@ -769,6 +770,7 @@ class TestBlockTask4_2 {
         System.out.println(student1.getMarks());
         System.out.println(student2.getMarks());
     }
+
     public static void Task4(int maxRandomMark) {
         Random random = new Random();
         int randomCount = random.nextInt(10);
@@ -795,8 +797,7 @@ class TestBlockTask4_2 {
         try {
             List<Student> students = MethodsStudent.convert(constructorArgs, addArgs);
             System.out.println(students);
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             StackTraceElement element = e.getStackTrace()[0];
             if (element.getMethodName().equals("convert")) {
                 System.out.println("Не удалось создать студента");
@@ -811,8 +812,118 @@ class TestBlockTask4_2 {
     }
 }
 
+class TestBlockTask5_1 {
+    public static void Task1() {
+        Fraction fraction1 = new Fraction(10, 5);
+        Fraction fraction2 = new Fraction(10, 5);
+        Fraction fraction3 = fraction1;
+        Fraction fraction4 = new Fraction(11, 5);
+        System.out.println(fraction1.equals(fraction2));
+        System.out.println(fraction1.equals(fraction3));
+        System.out.println(fraction1.equals(fraction4));
+        System.out.println(fraction1.hashCode());
+        System.out.println(fraction2.hashCode());
+        System.out.println(fraction3.hashCode());
+        System.out.println(fraction4.hashCode());
+    }
+
+    public static void Task2() {
+        ru.chichkov.geometry.point.Point3D point3D1 = new ru.chichkov.geometry.point.Point3D(1, 2, 3);
+        ru.chichkov.geometry.point.Point3D point3D2 = new ru.chichkov.geometry.point.Point3D(1, 2, 3);
+        ru.chichkov.geometry.point.Point3D point3D3 = new ru.chichkov.geometry.point.Point3D(2, 2, 3);
+        System.out.println(point3D1.equals(point3D2));
+        System.out.println(point3D1.equals(point3D3));
+        System.out.println(point3D1.hashCode());
+        System.out.println(point3D2.hashCode());
+        System.out.println(point3D3.hashCode());
+    }
+
+    public static void Task3() {
+        Line line1 = new Line(1, 2, 3, 4);
+        Line line2 = new Line(1, 2, 3, 4);
+        Line line3 = new Line(3, 4, 1, 2);
+        Line line4 = new Line(4, 3, 2, 1);
+        System.out.println(line1.equals(line2));
+        System.out.println(line1.equals(line3));
+        System.out.println(line1.equals(line4));
+        System.out.println(line1.hashCode());
+        System.out.println(line2.hashCode());
+        System.out.println(line3.hashCode());
+        System.out.println(line4.hashCode());
+    }
+
+    public static void Task4() {
+        Polyline polyline1 = new Polyline(new Point(1, 2), new Point(3, 4), new Point(7, 8));
+        ClosedPolyline closedPolyline = new ClosedPolyline(new Point(1, 2), new Point(3, 4), new Point(7, 8));
+        Polyline polyline2 = new Polyline(new Point(1, 2), new Point(3, 4), new Point(7, 8), new Point(1, 2));
+        ClosedPolyline closedPolyline2 = new ClosedPolyline(new Point(1, 2), new Point(7, 8), new Point(3, 4));
+        ClosedPolyline closedPolyline3 = new ClosedPolyline(new Point(1, 2), new Point(7, 8), new Point(3, 4));
+        System.out.println(polyline1.equals(closedPolyline));
+        System.out.println(polyline1.equals(polyline2));
+        System.out.println(polyline2.equals(closedPolyline));
+        System.out.println(polyline2.equals(closedPolyline2));
+
+        System.out.println(closedPolyline.equals(closedPolyline2));
+        System.out.println(closedPolyline.equals(polyline2));
+        System.out.println(closedPolyline2.equals(closedPolyline3));
+
+        System.out.println(polyline1.hashCode());
+        System.out.println(closedPolyline.hashCode());
+        System.out.println(polyline2.hashCode());
+        System.out.println(closedPolyline2.hashCode());
+        System.out.println(closedPolyline3.hashCode());
+    }
+
+    public static void Task5() {
+        City cityA = new City("A");
+        City cityB = new City("B");
+        City cityC = new City("C");
+        CityBackWay cityD = new CityBackWay("D");
+        cityA.setWays(new Way(cityB, 5), new Way(cityC, 6));
+        cityB.setWays(new Way(cityA, 5));
+        cityC.setWays(new Way(cityA, 10));
+        cityD.setWays(new Way(cityC, 15), new Way(cityB, 5));
+
+        System.out.println(cityA.equals(cityB));        // false
+        System.out.println(cityA.equals(cityC));        // false
+        System.out.println(cityA.equals(cityD) + "\n"); // true
+
+        System.out.println(cityB.equals(cityA));        // false
+        System.out.println(cityB.equals(cityC));        // true
+        System.out.println(cityB.equals(cityD) + "\n"); // false
+
+        System.out.println(cityC.equals(cityA));        // false
+        System.out.println(cityC.equals(cityB));        // true
+        System.out.println(cityC.equals(cityD) + "\n"); // false
+
+        System.out.println(cityD.equals(cityA));        // true
+        System.out.println(cityD.equals(cityB));        // false
+        System.out.println(cityD.equals(cityC) + "\n"); // false
+
+        System.out.println(cityA.hashCode());
+        System.out.println(cityB.hashCode());
+        System.out.println(cityC.hashCode());
+        System.out.println(cityD.hashCode());
+    }
+
+    public static void Task6() {
+        Student student1 = new Student("Вася", 2, 5, 4, 3);
+        Student student2 = new Student("Вася", 2, 3, 4, 5);
+        Student student3 = new Student("Петя", 2, 5, 4, 3);
+        Student student4 = new Student("Вася", 2, 4, 4, 3);
+        System.out.println(student1.equals(student2));
+        System.out.println(student1.equals(student3));
+        System.out.println(student1.equals(student4));
+
+        System.out.println(student1.hashCode());
+        System.out.println(student2.hashCode());
+        System.out.println(student3.hashCode());
+        System.out.println(student4.hashCode());
+    }
+}
+
 public class Main {
-    public static void main(String[] args) throws LossOfConnectionException{
-        TestBlockTask4_2.Task4(15);
+    public static void main(String[] args) throws LossOfConnectionException {
+        TestBlockTask5_1.Task6();
     }
 }

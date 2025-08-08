@@ -5,6 +5,7 @@ import ru.chichkov.exception.NotCorrectMarksException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // Задача 1.3.1
 // Задача 1.4.7
@@ -73,5 +74,17 @@ public class Student {
     @Override
     public String toString() {
         return "Студент \"" + name + "\" с оценками: " + marks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student student)) return false;
+        return this.name.equals(student.name) && this.averageMarks() == student.averageMarks();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, averageMarks());
     }
 }
