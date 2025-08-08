@@ -14,6 +14,7 @@ import static java.lang.Math.*;
 // Задача 1.6.6
 // Задача 2.3.5
 // Задача 5.1.3
+// Задача 5.2.3
 @Getter
 public class Line implements InterfaceLength {
     private Point startPoint;
@@ -57,5 +58,10 @@ public class Line implements InterfaceLength {
     @Override
     public int hashCode() {
         return Objects.hash(this.length(), startPoint.getX() + endPoint.getX(), startPoint.getY() + endPoint.getY());
+    }
+
+    @Override
+    protected Line clone() throws CloneNotSupportedException {
+        return new Line(this.startPoint, this.endPoint);
     }
 }

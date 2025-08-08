@@ -9,6 +9,7 @@ import java.util.Objects;
 // Задача 2.1.1
 // Задача 2.2.2
 // Задача 5.1.1
+// Задача 5.2.1
 @Getter
 public final class Fraction extends Number {
     private final int numerator;
@@ -99,5 +100,10 @@ public final class Fraction extends Number {
     @Override
     public int hashCode() {
         return Objects.hash(numerator, denominator);
+    }
+
+    @Override
+    protected Fraction clone() throws CloneNotSupportedException {
+        return new Fraction(this.numerator, this.denominator);
     }
 }
