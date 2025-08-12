@@ -1,6 +1,7 @@
 package ru.chichkov.student;
 
 import lombok.Getter;
+import ru.chichkov.comparable.Comparable;
 import ru.chichkov.exception.NotCorrectMarksException;
 
 import java.util.ArrayList;
@@ -14,7 +15,9 @@ import java.util.Objects;
 // Задача 2.3.9
 // Задача 4.1.1
 // Задача 4.2.3
-public class Student {
+// Задача 5.1.6
+// Задача 6.1.4
+public class Student extends Comparable<Student> {
     @Getter
     private final String name;
     @Getter
@@ -87,4 +90,12 @@ public class Student {
     public int hashCode() {
         return Objects.hash(name, averageMarks());
     }
+
+    @Override
+    public int compare(Student student) {
+       if (this.averageMarks() > student.averageMarks()) return 1;
+       if (this.averageMarks() < student.averageMarks()) return -1;
+       return 0;
+    }
+
 }

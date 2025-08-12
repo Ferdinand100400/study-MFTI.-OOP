@@ -19,7 +19,7 @@ public class ClosedPolyline extends Polyline {
     @Override
     public int length() {
         if (getPoints().size() < 3) return super.length();
-        return super.length() + (new Line(super.getPoints().get(0), super.getPoints().get(getPoints().size() - 1))).length();
+        return super.length() + (new Line(super.getPoints().get(0), super.getPoints().get(getPoints().size() - 1), Point.class)).length();
     }
 
     @Override

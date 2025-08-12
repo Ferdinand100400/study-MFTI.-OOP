@@ -2,6 +2,9 @@ package ru.chichkov.main;
 
 import ru.chichkov.connection.Connection;
 import ru.chichkov.exception.LossOfConnectionException;
+import ru.chichkov.stack.Stack;
+import ru.chichkov.storage.Box;
+import ru.chichkov.storage.Storage;
 import ru.chichkov.student.*;
 import ru.chichkov.weapon.Shooter;
 import ru.chichkov.animal.bird.Birds;
@@ -101,22 +104,22 @@ class TestBlockTask1_1 {
 }
 
 class TestBlockTask1_2 {
-    public static void testTask1() {
-        Line line1 = new Line(new Point(1, 3), new Point(23, 8));
-        Line line2 = new Line(new Point(5, 10), new Point(25, 10));
-
-        line1.setStartPoint(new Point(2, 5));
-        line1.setEndPoint(new Point(20, 50));
-        line2.setStartPoint(new Point(2, 10));
-        line2.setEndPoint(new Point(10, 10));
-
-        line1.setEndPoint(new Point(100, 25));
-
-        Line line3 = new Line(line1.getStartPoint(), line2.getEndPoint());
-        System.out.println(line1);
-        System.out.println(line2);
-        System.out.println(line3);
-    }
+//    public static void testTask1() {
+//        Line line1 = new Line(new Point(1, 3), new Point(23, 8));
+//        Line line2 = new Line(new Point(5, 10), new Point(25, 10));
+//
+//        line1.setStartPoint(new Point(2, 5));
+//        line1.setEndPoint(new Point(20, 50));
+//        line2.setStartPoint(new Point(2, 10));
+//        line2.setEndPoint(new Point(10, 10));
+//
+//        line1.setEndPoint(new Point(100, 25));
+//
+//        Line line3 = new Line(line1.getStartPoint(), line2.getEndPoint());
+//        System.out.println(line1);
+//        System.out.println(line2);
+//        System.out.println(line3);
+//    }
     /*public static void testTask2 {
         // Задача 1.2.2
         Human human1 = new Human(name1, 152);
@@ -247,7 +250,7 @@ class TestBlockTask1_4 {
     public static void testTask2() {
         Line line4 = new Line(1, 3, 23, 8);
         Line line5 = new Line(5, 10, 25, 10);
-        Line line6 = new Line(line4.getStartPoint(), line5.getEndPoint());
+        Line line6 = new Line(line4.getStartPoint(), line5.getEndPoint(), Point.class);
         System.out.println(line4);
         System.out.println(line5);
         System.out.println(line6);
@@ -450,8 +453,8 @@ class TestBlockTask1_6 {
         Point point1 = new Point(1, 3);
         Point point2 = new Point(5, 5);
         Point point3 = new Point(10, 5);
-        Line line1 = new Line(point1, point2);
-        Line line2 = new Line(point1, point3);
+        Line line1 = new Line(point1, point2, Point.class);
+        Line line2 = new Line(point1, point3, Point.class);
         if (!line1.getStartPoint().equals(line2.getStartPoint()))
             System.out.println("Линии не ссылаются на один объект точки");
     }
@@ -535,7 +538,7 @@ class TestBlockTest2_1 {
         Polyline polyLine = new Polyline(point1, point2, point3, point4);
         System.out.println("Длина замкнутой линии: " + closedPolyLine.length());
         System.out.println("Длина обычной линии: " + polyLine.length());
-        System.out.println("Разница линий должна быть - " + new Line(point1, point4).length());
+        System.out.println("Разница линий должна быть - " + new Line(point1, point4, Point.class).length());
     }
 
     public static void Task3() {
@@ -679,7 +682,7 @@ class TestBlockTask2_3 {
         Point point2 = new Point(5, 1);
         Point point3 = new Point(6, 2);
         Point point4 = new Point(10, 4);
-        Line line = new Line(point2, point4);
+        Line line = new Line(point2, point4, Point.class);
         ClosedPolyline closedPolyLine = new ClosedPolyline(point1, point2, point3, point4);
         Polyline polyLine = new Polyline(point1, point2, point3, point4);
         System.out.println(InterfaceLength.generalLength(line, closedPolyLine, polyLine));
@@ -922,8 +925,65 @@ class TestBlockTask5_1 {
     }
 }
 
+class TestBlockTask6_1 {
+    public static void Task1() {
+        Box<Integer> box = new Box<>();
+        box.setObject(3);
+        System.out.println(MathMethods.sum(box.getObject()));
+    }
+
+    public static void Task2_1() {
+        Storage<Integer> storage = new Storage<>(null);
+        System.out.println(storage.getObject(0));
+    }
+
+    public static void Task2_2() {
+        Storage<Integer> storage = new Storage<>(99);
+        System.out.println(storage.getObject(-1));
+    }
+
+    public static void Task2_3() {
+        Storage<String> storage = new Storage<>(null);
+        System.out.println(storage.getObject("default"));
+    }
+
+    public static void Task2_4() {
+        Storage<String> storage = new Storage<>("hello");
+        System.out.println(storage.getObject("hello world"));
+    }
+
+    public static void Task4() {
+        Student student1 = new Student("Вася", 2, 3, 4, 5);
+        Student student2 = new Student("Петя", 5, 3, 4, 2);
+        System.out.println(student1.compare(student2));
+    }
+
+    public static void Task5() {
+        ru.chichkov.geometry.point.Point3D startPoint = new ru.chichkov.geometry.point.Point3D(1,2,3);
+        ru.chichkov.geometry.point.Point3D endPoint = new ru.chichkov.geometry.point.Point3D(4,5,6);
+        Line<ru.chichkov.geometry.point.Point3D> line = new Line<>(startPoint, endPoint, ru.chichkov.geometry.point.Point3D.class);
+        System.out.println(line);
+        line.setEndPoint(new ru.chichkov.geometry.point.Point3D(7, 8, 9));
+        System.out.println(line);
+    }
+    public static void Task6() {
+        Stack<Integer> stack = new Stack<>(2);
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+        System.out.println(stack.peek());
+        System.out.println(stack.pop());
+    }
+}
+
 public class Main {
     public static void main(String[] args) throws LossOfConnectionException {
-        TestBlockTask5_1.Task6();
+        TestBlockTask6_1.Task6();
     }
 }

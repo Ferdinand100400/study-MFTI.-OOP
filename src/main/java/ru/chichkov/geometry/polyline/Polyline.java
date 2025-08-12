@@ -67,7 +67,7 @@ public class Polyline implements InterfaceLength {
     public int length() {
         int res = 0;
         for (int i = 0; i < points.size() - 1; i++) {
-            Line line = new Line(points.get(i), points.get(i + 1));
+            Line line = new Line(points.get(i), points.get(i + 1), Point.class);
             res += line.length();
         }
         return res;
