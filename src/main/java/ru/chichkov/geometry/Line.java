@@ -79,7 +79,7 @@ public class Line<T extends Point> implements InterfaceLength {
     }
 
     @Override
-    public Line clone() throws CloneNotSupportedException {
+    public Line<? extends Point> clone() throws CloneNotSupportedException {
         return new Line<T>(this.startPoint, this.endPoint, this.typePoint);
     }
 }

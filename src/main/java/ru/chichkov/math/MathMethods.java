@@ -1,5 +1,10 @@
 package ru.chichkov.math;
 
+import ru.chichkov.geometry.Line;
+
+import java.util.List;
+import java.util.Random;
+
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.pow;
 
@@ -40,5 +45,15 @@ public class MathMethods {
         }
         if (res == null) throw new IllegalArgumentException("Нет чисел в списке строк!");
         return res;
+    }
+
+    // Задача 6.2.4
+    public static <T extends Number> void fillingNumbers(List<T> list) {
+        Random random = new Random();
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            Integer number = random.nextInt(100) + 1;
+            list.set(i, (T) number);
+        }
     }
 }

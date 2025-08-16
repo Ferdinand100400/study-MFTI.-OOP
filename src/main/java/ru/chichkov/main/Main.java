@@ -2,8 +2,10 @@ package ru.chichkov.main;
 
 import ru.chichkov.connection.Connection;
 import ru.chichkov.exception.LossOfConnectionException;
+import ru.chichkov.geometry.*;
 import ru.chichkov.stack.Stack;
 import ru.chichkov.storage.Box;
+import ru.chichkov.storage.MethodsBox;
 import ru.chichkov.storage.Storage;
 import ru.chichkov.student.*;
 import ru.chichkov.weapon.Shooter;
@@ -13,11 +15,7 @@ import ru.chichkov.animal.bird.Parrot;
 import ru.chichkov.animal.bird.Sparrow;
 import ru.chichkov.employee.Department;
 import ru.chichkov.employee.Employee;
-import ru.chichkov.geometry.InterfaceLength;
-import ru.chichkov.geometry.InterfacePolyline;
 import ru.chichkov.geometry.points.Point3D;
-import ru.chichkov.geometry.Line;
-import ru.chichkov.geometry.Square;
 import ru.chichkov.animal.meow.Cat;
 import ru.chichkov.animal.meow.Dolphin;
 import ru.chichkov.animal.meow.MeowAnimals;
@@ -959,13 +957,14 @@ class TestBlockTask6_1 {
     }
 
     public static void Task5() {
-        ru.chichkov.geometry.point.Point3D startPoint = new ru.chichkov.geometry.point.Point3D(1,2,3);
-        ru.chichkov.geometry.point.Point3D endPoint = new ru.chichkov.geometry.point.Point3D(4,5,6);
+        ru.chichkov.geometry.point.Point3D startPoint = new ru.chichkov.geometry.point.Point3D(1, 2, 3);
+        ru.chichkov.geometry.point.Point3D endPoint = new ru.chichkov.geometry.point.Point3D(4, 5, 6);
         Line<ru.chichkov.geometry.point.Point3D> line = new Line<>(startPoint, endPoint, ru.chichkov.geometry.point.Point3D.class);
         System.out.println(line);
         line.setEndPoint(new ru.chichkov.geometry.point.Point3D(7, 8, 9));
         System.out.println(line);
     }
+
     public static void Task6() {
         Stack<Integer> stack = new Stack<>(2);
         stack.push(1);
@@ -982,8 +981,48 @@ class TestBlockTask6_1 {
     }
 }
 
+class TestBlockTask6_2 {
+    public static void Task1() {
+        Line<Point> line1 = new Line<>(1, 2, 3, 4);
+        Line<ru.chichkov.geometry.point.Point3D> line2 = new Line<>(1, 2, 3, 4, 5, 6);
+        System.out.println(line1);
+        MethodsLine.moveLineToXBy10(line1);
+        System.out.println(line1);
+        System.out.println(line2);
+        MethodsLine.moveLineToXBy10(line2);
+        System.out.println(line2);
+    }
+
+    public static void Task2() {
+        Box<Integer> box1 = new Box<>();
+        Box<Integer> box2 = new Box<>();
+        Box<Double> box3 = new Box<>();
+        Box<Float> box4 = new Box<>();
+        box1.setObject(3);
+        box2.setObject(5);
+        box3.setObject(10.5);
+        box4.setObject(15.0f);
+        System.out.println(MethodsBox.MaxValueFromBox(box1, box2, box3, box4));
+    }
+
+    public static void Task3() {
+        Box<ru.chichkov.geometry.point.Point3D> box1 = new Box<>();
+        Box<Point> box2 = new Box<>();
+        MethodsBox.BoxWithPoint3D(box1);
+        MethodsBox.BoxWithPoint3D(box2);
+        System.out.println(box1.getObject());
+        System.out.println(box2.getObject());
+    }
+    public static void Task4() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) list.add(i);
+        MathMethods.fillingNumbers(list);
+        System.out.println(list);
+    }
+}
+
 public class Main {
     public static void main(String[] args) throws LossOfConnectionException {
-        TestBlockTask6_1.Task6();
+
     }
 }
