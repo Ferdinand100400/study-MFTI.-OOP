@@ -2,6 +2,7 @@ package ru.chichkov.main;
 
 import ru.chichkov.connection.Connection;
 import ru.chichkov.exception.LossOfConnectionException;
+import ru.chichkov.genericMethods.GenericMethods;
 import ru.chichkov.geometry.*;
 import ru.chichkov.stack.Stack;
 import ru.chichkov.storage.Box;
@@ -43,10 +44,7 @@ import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 class TestBlockTask1_1 {
     public static void testTask1() {
@@ -1013,6 +1011,7 @@ class TestBlockTask6_2 {
         System.out.println(box1.getObject());
         System.out.println(box2.getObject());
     }
+
     public static void Task4() {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) list.add(i);
@@ -1021,8 +1020,76 @@ class TestBlockTask6_2 {
     }
 }
 
-public class Main {
-    public static void main(String[] args) throws LossOfConnectionException {
+class TestBlockTask6_3 {
+    public static void Task1_1() {
+        List<String> list = Arrays.asList("qwerty", "asdfg", "zx");
+        List<Integer> newList = GenericMethods.function(list, String::length);
+        System.out.println(newList);
+    }
 
+    public static void Task1_2() {
+        List<Integer> list = Arrays.asList(1, -3, 7);
+        List<Integer> newList = GenericMethods.function(list, Math::abs);
+        System.out.println(newList);
+    }
+
+    public static void Task1_3() {
+        List<Integer[]> list = new ArrayList<>();
+        list.add(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        list.add(new Integer[]{10, -5, 0, 1, 2, 3, 4, 5});
+        list.add(new Integer[]{-50, 7, 8, 9, 20, 1});
+        List<Integer> newList = GenericMethods.function(list, MathMethods::max);
+        System.out.println(newList);
+    }
+
+    public static void Task2_1() {
+        List<String> list = Arrays.asList("qwerty", "asdfg", "zx");
+        List<String> newList = GenericMethods.filter(list, s -> s.length() >= 3);
+        System.out.println(newList);
+    }
+
+    public static void Task2_2() {
+        List<Integer> list = Arrays.asList(1, -3, 7);
+        List<Integer> newList = GenericMethods.filter(list, n -> n > 0);
+        System.out.println(newList);
+    }
+
+    public static void Task2_3() {
+        List<Integer[]> list = new ArrayList<>();
+        list.add(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        list.add(new Integer[]{-10, -5, -0, -1, -2, -3, -4, -5});
+        list.add(new Integer[]{-50, 7, 8, 9, 20, 1});
+        List<Integer[]> newList = GenericMethods.filter(list, MathMethods::negativeArray);
+        for (Integer[] i : newList) {
+            System.out.println(Arrays.toString(i));
+        }
+    }
+
+    public static void Task3_1() {
+        List<String> list = Arrays.asList("qwerty", "asdfg", "zx");
+        Optional<String> concatList = GenericMethods.reduction(list, (s1, s2) -> s1 + s2);
+        System.out.println(concatList);
+    }
+
+    public static void Task3_2() {
+        List<Integer> list = Arrays.asList(1, -3, 7);
+        Optional<Integer> sumList = GenericMethods.reduction(list, Integer::sum);
+        System.out.println(sumList);
+    }
+
+    public static void Task3_3() {
+        List<List<Integer>> list = new ArrayList<>();
+        list.add(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        list.add(Arrays.asList(-10, -5, -0, -1, -2, -3, -4, -5));
+        list.add(Arrays.asList(-50, 7, 8, 9, 20, 1));
+        List<Integer> countElem = GenericMethods.function(list, List::size);
+        Optional<Integer> countElement = GenericMethods.reduction(countElem, Integer::sum);
+        System.out.println(countElement);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        TestBlockTask6_3.Task3_3();
     }
 }

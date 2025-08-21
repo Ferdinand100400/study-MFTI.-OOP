@@ -56,4 +56,21 @@ public class MathMethods {
             list.set(i, (T) number);
         }
     }
+
+    // Задача 6.3.1
+    public static <T extends Number> T max(T[] array) {
+        T max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i].doubleValue() > max.doubleValue()) max = array[i];
+        }
+        return max;
+    }
+
+    // Задача 6.3.2
+    public static <T extends Number> boolean negativeArray(T[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].doubleValue() > 0) return false;
+        }
+        return true;
+    }
 }
