@@ -1,14 +1,17 @@
 package ru.chichkov.main;
 
 import ru.chichkov.connection.Connection;
+import ru.chichkov.database.Database;
 import ru.chichkov.exception.LossOfConnectionException;
 import ru.chichkov.genericMethods.GenericMethods;
 import ru.chichkov.geometry.*;
+import ru.chichkov.math.fraction.GenerateFraction;
 import ru.chichkov.stack.Stack;
 import ru.chichkov.storage.Box;
 import ru.chichkov.storage.MethodsBox;
 import ru.chichkov.storage.Storage;
 import ru.chichkov.student.*;
+import ru.chichkov.temperature.Temperature;
 import ru.chichkov.weapon.Shooter;
 import ru.chichkov.animal.bird.Birds;
 import ru.chichkov.animal.bird.Cuckoo;
@@ -39,7 +42,7 @@ import ru.chichkov.weapon.Weapon;
 import ru.chichkov.house.House;
 import ru.chichkov.human.Human;
 import ru.chichkov.human.Name;
-import ru.chichkov.math.Fraction;
+import ru.chichkov.math.fraction.Fraction;
 import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
@@ -927,26 +930,26 @@ class TestBlockTask6_1 {
         box.setObject(3);
         System.out.println(MathMethods.sum(box.getObject()));
     }
-
-    public static void Task2_1() {
-        Storage<Integer> storage = new Storage<>(null);
-        System.out.println(storage.getObject(0));
-    }
-
-    public static void Task2_2() {
-        Storage<Integer> storage = new Storage<>(99);
-        System.out.println(storage.getObject(-1));
-    }
-
-    public static void Task2_3() {
-        Storage<String> storage = new Storage<>(null);
-        System.out.println(storage.getObject("default"));
-    }
-
-    public static void Task2_4() {
-        Storage<String> storage = new Storage<>("hello");
-        System.out.println(storage.getObject("hello world"));
-    }
+//
+//    public static void Task2_1() {
+//        Storage<Integer> storage = new Storage<>(null);
+//        System.out.println(storage.getObject(0));
+//    }
+//
+//    public static void Task2_2() {
+//        Storage<Integer> storage = new Storage<>(99);
+//        System.out.println(storage.getObject(-1));
+//    }
+//
+//    public static void Task2_3() {
+//        Storage<String> storage = new Storage<>(null);
+//        System.out.println(storage.getObject("default"));
+//    }
+//
+//    public static void Task2_4() {
+//        Storage<String> storage = new Storage<>("hello");
+//        System.out.println(storage.getObject("hello world"));
+//    }
 
     public static void Task4() {
         Student student1 = new Student("Вася", 2, 3, 4, 5);
@@ -1088,8 +1091,49 @@ class TestBlockTask6_3 {
     }
 }
 
+class TestBlockTask7_1 {
+    public static void Task1_1() {
+        Storage<Integer> storage1 = new Storage<>(null, true);
+        Storage<Integer> storage2 = new Storage<>(null, true);
+    }
+
+    public static void Task1_2() {
+        Storage<Integer> storage1 = new Storage<>(null, true);
+        Storage<Integer> storage2 = new Storage<>(5, true);
+    }
+
+    public static void Task1_3() {
+        Storage<Integer> storage1 = new Storage<>(null, false);
+        Storage<Integer> storage2 = new Storage<>(5, true);
+    }
+
+    public static void Task3() {
+        GenerateFraction generateFraction = new GenerateFraction();
+        Fraction fraction = generateFraction.generate(5, 1);
+        GenerateFraction generateFraction2 = new GenerateFraction();
+    }
+    public static void Task4() {
+        GenerateFraction generateFraction = new GenerateFraction();
+        Fraction fraction1 = new Fraction(10, 2);
+        Fraction fraction2 = generateFraction.generate(10,2);
+        System.out.println(fraction1 == fraction2);
+    }
+    public static void Task5() {
+        Temperature temperature = new Temperature("Холодно", 9);
+    }
+    public static void Task6() {
+        Database database = new Database(2);
+        ru.chichkov.database.Connection connection1 = new ru.chichkov.database.Connection(database);
+        ru.chichkov.database.Connection connection2 = new ru.chichkov.database.Connection(database);
+        ru.chichkov.database.Connection connection3 = new ru.chichkov.database.Connection(database);
+        System.out.println(connection1.getValue(0));
+        System.out.println(connection2.getValue(10));
+        System.out.println(connection3.getValue(0));
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask6_3.Task3_3();
+        TestBlockTask7_1.Task6();
     }
 }

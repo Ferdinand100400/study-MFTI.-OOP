@@ -1,4 +1,4 @@
-package ru.chichkov.math;
+package ru.chichkov.math.fraction;
 
 import lombok.Getter;
 
@@ -10,6 +10,7 @@ import java.util.Objects;
 // Задача 2.2.2
 // Задача 5.1.1
 // Задача 5.2.1
+// Задача 7.1.4
 @Getter
 public final class Fraction extends Number {
     private final int numerator;
@@ -19,6 +20,7 @@ public final class Fraction extends Number {
         this.numerator = numerator;
         if (denominator < 0) throw new IllegalArgumentException("Знаменатель не может быть отрицательным!");
         this.denominator = denominator;
+        if (GenerateFraction.findEqualsFractions(this) == -1) GenerateFraction.listFraction.add(this);
     }
 
     @Override
