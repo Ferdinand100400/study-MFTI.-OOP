@@ -1,17 +1,29 @@
 package ru.chichkov.math;
 
-import ru.chichkov.geometry.Line;
-
 import java.util.List;
 import java.util.Random;
+import java.util.SimpleTimeZone;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.rotateLeft;
 import static java.lang.Math.pow;
 
 // Задача 2.3.1
 // Задача 4.2.2
-public class MathMethods {
+// Задача 7.2.1
+public interface MathMethods {
 
+    // Задача 7.2.1
+    int sum();
+    public static int sum(MathMethods... numbers) {
+        int res = 0;
+        for (MathMethods num : numbers) {
+            if (num == null) continue;
+            res += num.sum();
+        }
+        return res;
+    }
+    // Задача 2.3.1
     public static double sum(Number... numbers) {
         double res = 0.0;
         for (Number num : numbers) {

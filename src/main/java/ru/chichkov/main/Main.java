@@ -1,10 +1,13 @@
 package ru.chichkov.main;
 
+import ru.chichkov.animal.woof.CatDog;
 import ru.chichkov.connection.Connection;
 import ru.chichkov.database.Database;
 import ru.chichkov.exception.LossOfConnectionException;
 import ru.chichkov.genericMethods.GenericMethods;
 import ru.chichkov.geometry.*;
+import ru.chichkov.math.SumIntegers;
+import ru.chichkov.math.SumStrings;
 import ru.chichkov.math.fraction.GenerateFraction;
 import ru.chichkov.stack.Stack;
 import ru.chichkov.storage.Box;
@@ -46,7 +49,6 @@ import ru.chichkov.math.fraction.Fraction;
 import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
-import java.math.BigInteger;
 import java.util.*;
 
 class TestBlockTask1_1 {
@@ -717,10 +719,10 @@ class TestBlockTask2_3 {
 }
 
 class TestBlockTask3_1 {
-    public static void Task3() {
-        System.out.println(MathMethods.sum(7, new Fraction(11, 3), 3.21,
-                new BigInteger(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2})));
-    }
+//    public static void Task3() {
+//        System.out.println(MathMethods.sum(7, new Fraction(11, 3), 3.21,
+//                new BigInteger(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2})));
+//    }
 
     public static void Task4() {
         System.out.println(MathMethods.myPow("5", "2"));
@@ -930,7 +932,7 @@ class TestBlockTask6_1 {
         box.setObject(3);
         System.out.println(MathMethods.sum(box.getObject()));
     }
-//
+
 //    public static void Task2_1() {
 //        Storage<Integer> storage = new Storage<>(null);
 //        System.out.println(storage.getObject(0));
@@ -1112,15 +1114,18 @@ class TestBlockTask7_1 {
         Fraction fraction = generateFraction.generate(5, 1);
         GenerateFraction generateFraction2 = new GenerateFraction();
     }
+
     public static void Task4() {
         GenerateFraction generateFraction = new GenerateFraction();
         Fraction fraction1 = new Fraction(10, 2);
-        Fraction fraction2 = generateFraction.generate(10,2);
+        Fraction fraction2 = generateFraction.generate(10, 2);
         System.out.println(fraction1 == fraction2);
     }
+
     public static void Task5() {
         Temperature temperature = new Temperature("Холодно", 9);
     }
+
     public static void Task6() {
         Database database = new Database(2);
         ru.chichkov.database.Connection connection1 = new ru.chichkov.database.Connection(database);
@@ -1132,8 +1137,24 @@ class TestBlockTask7_1 {
     }
 }
 
+class TestBlockTask7_2 {
+    public static void Task1() {
+        System.out.println(MathMethods.sum(new SumIntegers(1), new SumIntegers(10), new SumStrings("abc")));
+    }
+
+    public static void Task2() {
+        System.out.println(InterfaceLength.generalLength(new LengthStrings("abcd"), new LengthStrings("ab"),
+                new Line<Point>(new Point(1, 1), new Point(3, 3), Point.class)));
+    }
+    public static void Task4() {
+        CatDog catDog = new CatDog("barsic");
+        catDog.meow();
+        catDog.woof();
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask7_1.Task6();
+        TestBlockTask7_2.Task4();
     }
 }
