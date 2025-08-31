@@ -105,7 +105,11 @@ public final class Fraction extends Number {
     }
 
     @Override
-    protected Fraction clone() throws CloneNotSupportedException {
-        return new Fraction(this.numerator, this.denominator);
+    protected Fraction clone() {
+        try {
+            return (Fraction) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException();
+        }
     }
 }

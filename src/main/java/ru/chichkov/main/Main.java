@@ -3,6 +3,8 @@ package ru.chichkov.main;
 import ru.chichkov.animal.woof.CatDog;
 import ru.chichkov.connection.Connection;
 import ru.chichkov.database.Database;
+import ru.chichkov.database.patternDB.DatabasePattern;
+import ru.chichkov.database.patternDB.IntegerBD;
 import ru.chichkov.exception.LossOfConnectionException;
 import ru.chichkov.genericMethods.GenericMethods;
 import ru.chichkov.geometry.*;
@@ -956,7 +958,7 @@ class TestBlockTask6_1 {
     public static void Task4() {
         Student student1 = new Student("Вася", 2, 3, 4, 5);
         Student student2 = new Student("Петя", 5, 3, 4, 2);
-        System.out.println(student1.compare(student2));
+        System.out.println(student1.compareTo(student2));
     }
 
     public static void Task5() {
@@ -1152,9 +1154,16 @@ class TestBlockTask7_2 {
         catDog.woof();
     }
 }
+class TestBlockTask7_3 {
+    public static void Task1() {
+        DatabasePattern database = new DatabasePattern(new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5")));
+        IntegerBD stringBD = new IntegerBD();
+        System.out.println(stringBD.convert("2", Integer.class));
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask7_2.Task4();
+        TestBlockTask7_3.Task1();
     }
 }

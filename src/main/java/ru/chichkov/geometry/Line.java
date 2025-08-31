@@ -68,7 +68,8 @@ public class Line<T extends Point> implements InterfaceLength {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Line line)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Line<T> line = (Line<T>) o;
         return (startPoint.equals(line.startPoint) && endPoint.equals(line.endPoint))
                 || (startPoint.equals(line.endPoint) && endPoint.equals(line.startPoint));
     }
@@ -80,6 +81,10 @@ public class Line<T extends Point> implements InterfaceLength {
 
     @Override
     public Line<? extends Point> clone() throws CloneNotSupportedException {
-        return new Line<T>(this.startPoint, this.endPoint, this.typePoint);
+        try {
+            return (Line<? extends Point>) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException();
+        }
     }
 }

@@ -32,8 +32,12 @@ public sealed class Point permits Point3D {
     }
 
     @Override
-    protected Point clone() throws CloneNotSupportedException {
-        return new Point(this.x, this.y);
+    protected Point clone() {
+        try {
+            return (Point) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException();
+        }
     }
 }
 

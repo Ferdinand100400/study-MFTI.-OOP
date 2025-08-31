@@ -60,12 +60,12 @@ public interface MathMethods {
     }
 
     // Задача 6.2.4
-    public static <T extends Number> void fillingNumbers(List<T> list) {
+    public static void fillingNumbers(List<? super Integer> list) {
         Random random = new Random();
         int size = list.size();
         for (int i = 0; i < size; i++) {
             Integer number = random.nextInt(100) + 1;
-            list.set(i, (T) number);
+            list.set(i, number);
         }
     }
 

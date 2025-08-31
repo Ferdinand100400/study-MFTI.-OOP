@@ -17,7 +17,7 @@ import java.util.Objects;
 // Задача 4.2.3
 // Задача 5.1.6
 // Задача 6.1.4
-public class Student extends Comparable<Student> {
+public class Student implements Comparable<Student> {
     @Getter
     private final String name;
     @Getter
@@ -92,7 +92,7 @@ public class Student extends Comparable<Student> {
     }
 
     @Override
-    public int compare(Student student) {
+    public int compareTo(Student student) {
        if (this.averageMarks() > student.averageMarks()) return 1;
        if (this.averageMarks() < student.averageMarks()) return -1;
        return 0;

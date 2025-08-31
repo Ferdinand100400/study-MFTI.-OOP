@@ -12,8 +12,8 @@ import java.util.function.*;
 public class GenericMethods {
 
     // Задача 6.3.1
-    public static <T, P> List<P> function(List<T> list, Function<T, P> fun) {
-        List<P> result = new ArrayList<>();
+    public static <T, R> List<R> function(List<T> list, Function<T, R> fun) {
+        List<R> result = new ArrayList<>();
         for (T t : list) {
             result.add(fun.apply(t));
         }
