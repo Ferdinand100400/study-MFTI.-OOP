@@ -40,5 +40,11 @@ public class GenericMethods {
     }
 
     // Задача 6.3.4
-
+    public static <T, P> P collect(List<T> element, Supplier<P> supplier, BiConsumer<P, T> biConsumer) {
+        P result = supplier.get();
+        for (T elem: element) {
+            biConsumer.accept(result, elem);
+        }
+        return result;
+    }
 }
