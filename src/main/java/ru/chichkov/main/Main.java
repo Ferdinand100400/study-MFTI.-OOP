@@ -6,7 +6,7 @@ import ru.chichkov.database.Database;
 import ru.chichkov.database.patternDB.DatabasePattern;
 import ru.chichkov.database.patternDB.IntegerBD;
 import ru.chichkov.exception.LossOfConnectionException;
-import ru.chichkov.genericMethods.GenericMethods;
+import ru.chichkov.DataStream.DataStream;
 import ru.chichkov.geometry.*;
 import ru.chichkov.math.SumIntegers;
 import ru.chichkov.math.SumStrings;
@@ -1029,14 +1029,18 @@ class TestBlockTask6_2 {
 
 class TestBlockTask6_3 {
     public static void Task1_1() {
-        List<String> list = Arrays.asList("qwerty", "asdfg", "zx");
-        List<Integer> newList = GenericMethods.function(list, String::length);
+        List<String> list = List.of("qwerty", "asdfg", "zx");
+        List<Integer> newList = DataStream.of(list)
+                .map(String::length)
+                .collect(ArrayList::new, ArrayList::add);
         System.out.println(newList);
     }
 
     public static void Task1_2() {
-        List<Integer> list = Arrays.asList(1, -3, 7);
-        List<Integer> newList = GenericMethods.function(list, Math::abs);
+        List<Integer> list = List.of(1, -3, 7);
+        List<Integer> newList = DataStream.of(list)
+                .map(Math::abs)
+                .collect(ArrayList::new, ArrayList::add);
         System.out.println(newList);
     }
 
@@ -1045,19 +1049,26 @@ class TestBlockTask6_3 {
         list.add(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         list.add(new Integer[]{10, -5, 0, 1, 2, 3, 4, 5});
         list.add(new Integer[]{-50, 7, 8, 9, 20, 1});
-        List<Integer> newList = GenericMethods.function(list, MathMethods::max);
+        List<Integer> newList = DataStream.of(list)
+                .map(MathMethods::max)
+                .collect(ArrayList::new, ArrayList::add);
         System.out.println(newList);
     }
 
     public static void Task2_1() {
-        List<String> list = Arrays.asList("qwerty", "asdfg", "zx");
-        List<String> newList = GenericMethods.filter(list, s -> s.length() >= 3);
+        List<String> list = List.of("qwerty", "asdfg", "zx");
+        List<String> newList = DataStream.of(list)
+                .filter(s -> s.length() >= 3)
+                .collect(ArrayList::new, ArrayList::add);
         System.out.println(newList);
     }
 
     public static void Task2_2() {
-        List<Integer> list = Arrays.asList(1, -3, 7);
-        List<Integer> newList = GenericMethods.filter(list, n -> n > 0);
+        List<Integer> list = List.of(1, -3, 7);
+        Optional<Integer> newList = DataStream.of(list)
+                .filter(n -> n > 0)
+                .reduce(Integer::sum);
+            //    .collect(ArrayList::new, ArrayList::add);
         System.out.println(newList);
     }
 
@@ -1066,21 +1077,25 @@ class TestBlockTask6_3 {
         list.add(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         list.add(new Integer[]{-10, -5, -0, -1, -2, -3, -4, -5});
         list.add(new Integer[]{-50, 7, 8, 9, 20, 1});
-        List<Integer[]> newList = GenericMethods.filter(list, MathMethods::negativeArray);
+        List<Integer[]> newList = DataStream.of(list)
+                .filter(MathMethods::negativeArray)
+                .collect(ArrayList::new, ArrayList::add);
         for (Integer[] i : newList) {
             System.out.println(Arrays.toString(i));
         }
     }
 
     public static void Task3_1() {
-        List<String> list = Arrays.asList("qwerty", "asdfg", "zx");
-        Optional<String> concatList = GenericMethods.reduction(list, (s1, s2) -> s1 + s2);
+        List<String> list = List.of("qwerty", "asdfg", "zx");
+        Optional<String> concatList = DataStream.of(list)
+                .reduce((s1, s2) -> s1 + s2);
         System.out.println(concatList);
     }
 
     public static void Task3_2() {
-        List<Integer> list = Arrays.asList(1, -3, 7);
-        Optional<Integer> sumList = GenericMethods.reduction(list, Integer::sum);
+        List<Integer> list = List.of(1, -3, 7);
+        Optional<Integer> sumList = DataStream.of(list)
+                .reduce(Integer::sum);
         System.out.println(sumList);
     }
 
@@ -1089,8 +1104,9 @@ class TestBlockTask6_3 {
         list.add(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         list.add(Arrays.asList(-10, -5, -0, -1, -2, -3, -4, -5));
         list.add(Arrays.asList(-50, 7, 8, 9, 20, 1));
-        List<Integer> countElem = GenericMethods.function(list, List::size);
-        Optional<Integer> countElement = GenericMethods.reduction(countElem, Integer::sum);
+        Optional<Integer> countElement = DataStream.of(list)
+                .map(List::size)
+                .reduce(Integer::sum);
         System.out.println(countElement);
     }
 }
@@ -1164,6 +1180,6 @@ class TestBlockTask7_3 {
 
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask7_3.Task1();
+        TestBlockTask6_3.Task2_2();
     }
 }
