@@ -52,6 +52,8 @@ import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class TestBlockTask1_1 {
     public static void testTask1() {
@@ -1065,11 +1067,11 @@ class TestBlockTask6_3 {
 
     public static void Task2_2() {
         List<Integer> list = List.of(1, -3, 7);
-        Optional<Integer> newList = DataStream.of(list)
+        Integer res = DataStream.of(list)
                 .filter(n -> n > 0)
                 .reduce(Integer::sum);
-            //    .collect(ArrayList::new, ArrayList::add);
-        System.out.println(newList);
+        //    .collect(ArrayList::new, ArrayList::add);
+        System.out.println(res);
     }
 
     public static void Task2_3() {
@@ -1087,16 +1089,18 @@ class TestBlockTask6_3 {
 
     public static void Task3_1() {
         List<String> list = List.of("qwerty", "asdfg", "zx");
-        Optional<String> concatList = DataStream.of(list)
+        String concat = DataStream.of(list)
                 .reduce((s1, s2) -> s1 + s2);
-        System.out.println(concatList);
+        System.out.println(concat);
     }
 
     public static void Task3_2() {
-        List<Integer> list = List.of(1, -3, 7);
-        Optional<Integer> sumList = DataStream.of(list)
+        List<String> list = List.of("1", "-3", "7");
+        Integer sum = DataStream.of(list)
+                .map(Integer::parseInt)
+                .filter(x -> x > 0)
                 .reduce(Integer::sum);
-        System.out.println(sumList);
+        System.out.println(sum);
     }
 
     public static void Task3_3() {
@@ -1104,10 +1108,24 @@ class TestBlockTask6_3 {
         list.add(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         list.add(Arrays.asList(-10, -5, -0, -1, -2, -3, -4, -5));
         list.add(Arrays.asList(-50, 7, 8, 9, 20, 1));
-        Optional<Integer> countElement = DataStream.of(list)
+        Integer countElement = DataStream.of(list)
                 .map(List::size)
                 .reduce(Integer::sum);
         System.out.println(countElement);
+    }
+    public static void Task4_1() {
+        Integer sum = DataStream.of("1", "-3", "7")
+                .map(Integer::parseInt)
+                .filter(x -> x > 0)
+                .reduce(Integer::sum);
+        System.out.println(sum);
+    }
+}
+class Generate {
+    List<String> list = new ArrayList<>();
+
+    public void add(List<String> list) {
+        this.list = list;
     }
 }
 
@@ -1164,12 +1182,14 @@ class TestBlockTask7_2 {
         System.out.println(InterfaceLength.generalLength(new LengthStrings("abcd"), new LengthStrings("ab"),
                 new Line<Point>(new Point(1, 1), new Point(3, 3), Point.class)));
     }
+
     public static void Task4() {
         CatDog catDog = new CatDog("barsic");
         catDog.meow();
         catDog.woof();
     }
 }
+
 class TestBlockTask7_3 {
     public static void Task1() {
         DatabasePattern database = new DatabasePattern(new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5")));
@@ -1180,6 +1200,6 @@ class TestBlockTask7_3 {
 
 public class Main {
     public static void main(String[] args) {
-        TestBlockTask6_3.Task2_2();
+        TestBlockTask6_3.Task4_1();
     }
 }
