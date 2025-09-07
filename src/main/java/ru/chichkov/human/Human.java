@@ -6,6 +6,7 @@ import lombok.Getter;
 // Задача 1.4.6
 // Задача 1.5.4
 // Задача 1.6.7
+// Задача 7.1.9
 @Getter
 public class Human {
 
@@ -17,13 +18,13 @@ public class Human {
         this.father = father;
     }
     public Human(String name, Human father) {
-        this(new Name(name), father);
+        this(Name.of(name), father);
     }
     public Human(Name name) {
         this(name, null);
     }
     public Human(String name) {
-        this(new Name(name));
+        this(Name.of(name));
     }
 
     @Override

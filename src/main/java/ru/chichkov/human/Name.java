@@ -3,12 +3,13 @@ package ru.chichkov.human;
 // Задача 1.1.3
 // Задача 1.4.5
 // Задача 1.6.2
+// Задача 7.1.9
 public class Name {
     private final String surname;
     private final String name;
     private final String patronymic;
 
-    public Name(String surname, String name, String patronymic) {
+    private Name(String name, String surname, String patronymic) {
         if (surname == null) surname = "";
         if (name == null) name = "";
         if (patronymic == null) patronymic = "";
@@ -19,12 +20,15 @@ public class Name {
         this.patronymic = patronymic;
     }
 
-    public Name(String name, String surname) {
-        this(name, surname, "");
+    public static Name of(String name, String surname, String patronymic) {
+        return new Name(name, surname, patronymic);
+    }
+    public static Name of(String name, String surname) {
+        return new Name(name, surname, "");
     }
 
-    public Name(String name) {
-        this(name, "", "");
+    public static Name of(String name) {
+        return new Name(name, "", "");
     }
 
     @Override

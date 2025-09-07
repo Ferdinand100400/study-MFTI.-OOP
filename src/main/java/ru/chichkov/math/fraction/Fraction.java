@@ -2,6 +2,8 @@ package ru.chichkov.math.fraction;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 // Задача 1.5.5
@@ -20,7 +22,7 @@ public final class Fraction extends Number {
         this.numerator = numerator;
         if (denominator < 0) throw new IllegalArgumentException("Знаменатель не может быть отрицательным!");
         this.denominator = denominator;
-        if (GenerateFraction.findEqualsFractions(this) == -1) GenerateFraction.listFraction.add(this);
+        if (GenerateFractionImpl.findEqualsFractions(this) == -1) GenerateFractionImpl.listFraction.add(this);
     }
 
     @Override
@@ -112,4 +114,31 @@ public final class Fraction extends Number {
             throw new RuntimeException();
         }
     }
+
+    // Задача 7.1.2
+    // Задача 7.1.3
+    // Задача 7.1.4
+    public static class GenerateFractionImpl implements GenerateFraction {
+        private static boolean onlyOneGenerateFraction = false;
+        private static List<Fraction> listFraction;
+
+        public GenerateFractionImpl() {
+            if (onlyOneGenerateFraction) throw new IllegalArgumentException("Не может быть более одного генератора дробей");
+            onlyOneGenerateFraction = true;
+            listFraction = new ArrayList<>();
+        }
+        public Fraction generate(int numerator, int denominator) {
+            Fraction fraction = new Fraction(numerator, denominator);
+            if (findEqualsFractions(fraction) != -1) return listFraction.get(findEqualsFractions(fraction));
+            listFraction.add(fraction);
+            return fraction;
+        }
+        private static int findEqualsFractions(Fraction currentFraction) {
+            for (int i = 0; i < listFraction.size(); i++) {
+                if (currentFraction.equals(listFraction.get(i))) return i;
+            }
+            return -1;
+        }
+    }
+
 }

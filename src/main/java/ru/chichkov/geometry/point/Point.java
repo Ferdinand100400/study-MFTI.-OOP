@@ -1,6 +1,8 @@
 package ru.chichkov.geometry.point;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -8,11 +10,22 @@ import java.util.Objects;
 // Задача 1.4.1
 // Задача 5.1.2
 // Задача 5.2.2
-@Data
+// Задача 7.1.2
+@Getter
 public sealed class Point permits Point3D {
     private final int x;
     private final int y;
 
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public static Point of(int x, int y) {
+        return new Point(x, y);
+    }
+    public static Point of(int x, int y, int z) {
+        return Point3D.of(x, y, z);
+    }
 
     @Override
     public String toString() {

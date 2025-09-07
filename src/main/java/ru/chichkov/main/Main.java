@@ -2,6 +2,7 @@ package ru.chichkov.main;
 
 import ru.chichkov.animal.woof.CatDog;
 import ru.chichkov.connection.Connection;
+import ru.chichkov.database.ConnectionBD;
 import ru.chichkov.database.Database;
 import ru.chichkov.database.patternDB.DatabasePattern;
 import ru.chichkov.database.patternDB.IntegerBD;
@@ -52,7 +53,6 @@ import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class TestBlockTask1_1 {
@@ -277,10 +277,10 @@ class TestBlockTask1_4 {
     }
 
     public static void testTask5() {
-        Name name1 = new Name("Клеопатра");
-        Name name2 = new Name("Александр", "Сергеевич", "Пушкин");
-        Name name3 = new Name("Владимир", "Маяковский");
-        Name name4 = new Name("Христофор", "Бонифатьевич");
+        Name name1 = Name.of("Клеопатра");
+        Name name2 = Name.of("Александр", "Сергеевич", "Пушкин");
+        Name name3 = Name.of("Владимир", "Маяковский");
+        Name name4 = Name.of("Христофор", "Бонифатьевич");
         System.out.println(name1);
         System.out.println(name2);
         System.out.println(name3);
@@ -289,7 +289,7 @@ class TestBlockTask1_4 {
 
     public static void testTask6() {
         Human human1 = new Human("Лев");
-        Human human2 = new Human(new Name("Сергей", "Пушкин"), human1);
+        Human human2 = new Human(Name.of("Сергей", "Пушкин"), human1);
         Human human3 = new Human("Александр", human2);
         System.out.println(human1);
         System.out.println(human2);
@@ -377,32 +377,32 @@ class TestBlockTask1_6 {
     }
 
     public static void TestTask2_1() {
-        Name name = new Name("Вася");
+        Name name = Name.of("Вася");
         System.out.println(name);
     }
 
     public static void TestTask2_2() {
-        Name name = new Name("Вася", "Чудов", null);
+        Name name = Name.of("Вася", "Чудов", null);
         System.out.println(name);
     }
 
     public static void TestTask2_3() {
-        Name name = new Name("");
+        Name name = Name.of("");
         System.out.println(name);
     }
 
     public static void TestTask2_4() {
-        Name name = new Name(null);
+        Name name = Name.of(null);
         System.out.println(name);
     }
 
     public static void TestTask2_5() {
-        Name name = new Name(null, "", null);
+        Name name = Name.of(null, "", null);
         System.out.println(name);
     }
 
     public static void TestTask2_6() {
-        Name name = new Name(null, "", "Иванович");
+        Name name = Name.of(null, "", "Иванович");
         System.out.println(name);
     }
 
@@ -1113,6 +1113,7 @@ class TestBlockTask6_3 {
                 .reduce(Integer::sum);
         System.out.println(countElement);
     }
+
     public static void Task4_1() {
         Integer sum = DataStream.of("1", "-3", "7")
                 .map(Integer::parseInt)
@@ -1121,6 +1122,7 @@ class TestBlockTask6_3 {
         System.out.println(sum);
     }
 }
+
 class Generate {
     List<String> list = new ArrayList<>();
 
@@ -1131,45 +1133,77 @@ class Generate {
 
 class TestBlockTask7_1 {
     public static void Task1_1() {
-        Storage<Integer> storage1 = new Storage<>(null, true);
-        Storage<Integer> storage2 = new Storage<>(null, true);
+        Storage<Integer> storage1 = Storage.empty();
+        System.out.println(storage1.getObject(0));
+        Storage<Integer> storage2 = Storage.of(null);
     }
 
     public static void Task1_2() {
-        Storage<Integer> storage1 = new Storage<>(null, true);
-        Storage<Integer> storage2 = new Storage<>(5, true);
+        Storage<Integer> storage1 = Storage.ofNullable(null);
+        Storage<Integer> storage2 = Storage.of(5);
+        Storage<Integer> storage3 = Storage.ofNullable(null);
+        System.out.println(storage1.getObject(0));
+        System.out.println(storage2.getObject(0));
+        System.out.println(storage3.getObject(0));
     }
 
     public static void Task1_3() {
-        Storage<Integer> storage1 = new Storage<>(null, false);
-        Storage<Integer> storage2 = new Storage<>(5, true);
+        Storage<Integer> storage1 = Storage.lazy(() -> Stream.of(1, 2, 3)
+                .map(x -> x * 2)
+                .reduce(Integer::sum)
+                .orElse(0));
+        System.out.println(storage1.getObject(0));
     }
 
     public static void Task3() {
-        GenerateFraction generateFraction = new GenerateFraction();
-        Fraction fraction = generateFraction.generate(5, 1);
-        GenerateFraction generateFraction2 = new GenerateFraction();
+        GenerateFraction generateFraction = new Fraction.GenerateFractionImpl();
+        Fraction fraction1 = generateFraction.generate(5, 10);
+        Fraction fraction2 = generateFraction.generate(10, 5);
+        Fraction fraction3 = generateFraction.generate(1, 1);
+        Storage<Fraction> storage = Storage.lazy(() -> Stream.of(fraction1, fraction2, fraction3)
+                .map((x) -> x.sum(5))
+                .reduce(Fraction::sum)
+                .orElse(new Fraction(0, 0)));
+        System.out.println(fraction1);
+        System.out.println(fraction2);
+        System.out.println(fraction3);
+        System.out.println(storage.getObject(new Fraction(0, 0)));
+        GenerateFraction generateFraction2 = new Fraction.GenerateFractionImpl();
     }
 
     public static void Task4() {
-        GenerateFraction generateFraction = new GenerateFraction();
-        Fraction fraction1 = new Fraction(10, 2);
-        Fraction fraction2 = generateFraction.generate(10, 2);
+        GenerateFraction generateFraction = new Fraction.GenerateFractionImpl();
+        Fraction fraction1 = generateFraction.generate(5, 10);
+        Fraction fraction2 = generateFraction.generate(5, 10);
+        Fraction fraction3 = generateFraction.generate(10, 5);
         System.out.println(fraction1 == fraction2);
+        System.out.println(fraction1 == fraction3);
     }
 
     public static void Task5() {
-        Temperature temperature = new Temperature("Холодно", 9);
+        Temperature temperature1 = new Temperature("Холодно");
+        System.out.println(temperature1.getMinTemp() + " ... " + temperature1.getMaxTemp());
+        Temperature temperature2 = new Temperature("НОРМАЛЬНО");
+        System.out.println(temperature2.getMinTemp() + " ... " + temperature2.getMaxTemp());
+        Temperature temperature3 = new Temperature("ЖАРко");
+        System.out.println(temperature3.getMinTemp() + " ... " + temperature3.getMaxTemp());
+        Temperature temperature4 = new Temperature("Хорошо");
     }
 
-    public static void Task6() {
+    public static void Task6() throws Exception {
         Database database = new Database(2);
-        ru.chichkov.database.Connection connection1 = new ru.chichkov.database.Connection(database);
-        ru.chichkov.database.Connection connection2 = new ru.chichkov.database.Connection(database);
-        ru.chichkov.database.Connection connection3 = new ru.chichkov.database.Connection(database);
-        System.out.println(connection1.getValue(0));
-        System.out.println(connection2.getValue(10));
-        System.out.println(connection3.getValue(0));
+        ConnectionBD connection1 = database.getConnection();
+        ConnectionBD connection2 = database.getConnection();
+        ConnectionBD connection3 = database.getConnection();
+        System.out.println(connection1 + "\n" + connection2 + "\n" + connection3);
+        System.out.println(connection1.get(0));
+        System.out.println(connection2.get(10));
+        connection2.add("11");
+        System.out.println(connection2.get(10));
+        connection2.close();
+        System.out.println(connection2.get(5));
+        connection3 = database.getConnection();
+        System.out.println(connection3.get(5));
     }
 }
 
@@ -1199,7 +1233,7 @@ class TestBlockTask7_3 {
 }
 
 public class Main {
-    public static void main(String[] args) {
-        TestBlockTask6_3.Task4_1();
+    public static void main(String[] args) throws Exception {
+        TestBlockTask7_1.Task6();
     }
 }
