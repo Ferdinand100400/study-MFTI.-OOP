@@ -20,17 +20,6 @@ public class Name {
         this.patronymic = patronymic;
     }
 
-    public static Name of(String name, String surname, String patronymic) {
-        return new Name(name, surname, patronymic);
-    }
-    public static Name of(String name, String surname) {
-        return new Name(name, surname, "");
-    }
-
-    public static Name of(String name) {
-        return new Name(name, "", "");
-    }
-
     @Override
     public String toString() {
         return surname + " " + name + " " + patronymic;
@@ -46,5 +35,39 @@ public class Name {
 
     public String getPatronymic() {
         return patronymic;
+    }
+
+    public static FullNameBuilder builder() {
+        return new Builder();
+    }
+    private static class Builder implements FullNameBuilder {
+        private String surname = "";
+        private String name = "";
+        private String patronymic = "";
+        @Override
+        public FullNameBuilder firstName(String firstName) {
+            if (firstName == null) return this;
+            this.name = firstName;
+            return this;
+        }
+
+        @Override
+        public FullNameBuilder surname(String surname) {
+            if (surname == null) return this;
+            this.surname = surname;
+            return this;
+        }
+
+        @Override
+        public FullNameBuilder patronymic(String patronymic) {
+            if (patronymic == null) return this;
+            this.patronymic = patronymic;
+            return this;
+        }
+
+        @Override
+        public Name build() {
+            return new Name(this.name, this.surname, this.patronymic);
+        }
     }
 }

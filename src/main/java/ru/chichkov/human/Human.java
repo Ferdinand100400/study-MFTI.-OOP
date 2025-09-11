@@ -10,21 +10,21 @@ import lombok.Getter;
 @Getter
 public class Human {
 
-    private final Name name;
-    private final Human father;
+    private Name name;
+    private Human father;
 
     public Human(Name name, Human father) {
         this.name = name;
         this.father = father;
     }
     public Human(String name, Human father) {
-        this(Name.of(name), father);
+        this(Name.builder().firstName(name).build(), father);
     }
     public Human(Name name) {
         this(name, null);
     }
     public Human(String name) {
-        this(Name.of(name));
+        this(Name.builder().firstName(name).build());
     }
 
     @Override
