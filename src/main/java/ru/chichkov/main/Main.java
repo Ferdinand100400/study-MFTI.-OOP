@@ -1,6 +1,15 @@
 package ru.chichkov.main;
 
-import ru.chichkov.animal.woof.CatDog;
+import ru.chichkov.animal.dog.Dog;
+import ru.chichkov.animal.meow.GavAnimals;
+import ru.chichkov.behavioralPatterns.SaveStudent;
+import ru.chichkov.behavioralPatterns.SaveStudentImpl;
+import ru.chichkov.behavioralPatterns.karateKid.Combination;
+import ru.chichkov.behavioralPatterns.karateKid.KarateKid;
+import ru.chichkov.behavioralPatterns.stock.Bot;
+import ru.chichkov.behavioralPatterns.stock.Printer;
+import ru.chichkov.behavioralPatterns.stock.Stock;
+import ru.chichkov.behavioralPatterns.trafficLight.TrafficLight;
 import ru.chichkov.connection.Connection;
 import ru.chichkov.database.ConnectionBD;
 import ru.chichkov.database.Database;
@@ -16,6 +25,9 @@ import ru.chichkov.stack.Stack;
 import ru.chichkov.storage.Box;
 import ru.chichkov.storage.MethodsBox;
 import ru.chichkov.storage.Storage;
+import ru.chichkov.structuralPatterns.CachingLine;
+import ru.chichkov.structuralPatterns.meowable.CatDog;
+import ru.chichkov.structuralPatterns.meowable.CountMeow;
 import ru.chichkov.student.*;
 import ru.chichkov.temperature.Temperature;
 import ru.chichkov.weapon.Shooter;
@@ -277,10 +289,22 @@ class TestBlockTask1_4 {
     }
 
     public static void testTask5() {
-        Name name1 = Name.of("Клеопатра");
-        Name name2 = Name.of("Александр", "Сергеевич", "Пушкин");
-        Name name3 = Name.of("Владимир", "Маяковский");
-        Name name4 = Name.of("Христофор", "Бонифатьевич");
+        Name name1 = Name.builder()
+                .firstName("Клеопатра")
+                .build();
+        Name name2 = Name.builder()
+                .firstName("Александр")
+                .patronymic("Сергеевич")
+                .surname("Пушкин")
+                .build();
+        Name name3 = Name.builder()
+                .firstName("Владимир")
+                .surname("Маяковский")
+                .build();
+        Name name4 = Name.builder()
+                .firstName("Христофор")
+                .patronymic("Бонифатьевич")
+                .build();
         System.out.println(name1);
         System.out.println(name2);
         System.out.println(name3);
@@ -289,7 +313,10 @@ class TestBlockTask1_4 {
 
     public static void testTask6() {
         Human human1 = new Human("Лев");
-        Human human2 = new Human(Name.of("Сергей", "Пушкин"), human1);
+        Human human2 = new Human(Name.builder()
+                .firstName("Сергей")
+                .surname("Пушкин")
+                .build(), human1);
         Human human3 = new Human("Александр", human2);
         System.out.println(human1);
         System.out.println(human2);
@@ -377,32 +404,50 @@ class TestBlockTask1_6 {
     }
 
     public static void TestTask2_1() {
-        Name name = Name.of("Вася");
+        Name name = Name.builder()
+                .firstName("Вася")
+                .build();
         System.out.println(name);
     }
 
     public static void TestTask2_2() {
-        Name name = Name.of("Вася", "Чудов", null);
+        Name name = Name.builder()
+                .firstName("Вася")
+                .surname("Чудов")
+                .patronymic(null)
+                .build();
         System.out.println(name);
     }
 
     public static void TestTask2_3() {
-        Name name = Name.of("");
+        Name name = Name.builder()
+                .firstName("")
+                .build();
         System.out.println(name);
     }
 
     public static void TestTask2_4() {
-        Name name = Name.of(null);
+        Name name = Name.builder()
+                .firstName(null)
+                .build();
         System.out.println(name);
     }
 
     public static void TestTask2_5() {
-        Name name = Name.of(null, "", null);
+        Name name = Name.builder()
+                .firstName(null)
+                .surname("")
+                .patronymic(null)
+                .build();
         System.out.println(name);
     }
 
     public static void TestTask2_6() {
-        Name name = Name.of(null, "", "Иванович");
+        Name name = Name.builder()
+                .firstName(null)
+                .surname("")
+                .patronymic("Иванович")
+                .build();
         System.out.println(name);
     }
 
@@ -1217,10 +1262,34 @@ class TestBlockTask7_2 {
                 new Line<Point>(new Point(1, 1), new Point(3, 3), Point.class)));
     }
 
+    public static void Task3() {
+        MeowAnimals meowAnimals = new Cat("Барсик");
+        CountMeow countMeow = new CountMeow(meowAnimals);
+        Task3_testFun(countMeow);
+        System.out.println(countMeow.getCountMeow());
+    }
+
+    public static void Task3_testFun(MeowAnimals meowAnimals) {
+        for (int i = 0; i < 10; i++) meowAnimals.meow();
+    }
+
     public static void Task4() {
-        CatDog catDog = new CatDog("barsic");
+        MeowAnimals cat = new Cat("Барсик");
+        cat.meow();
+        GavAnimals dog = new Dog("Шарик");
+        dog.gav();
+        CatDog catDog = new CatDog("КотоПес");
+        catDog.gav();
         catDog.meow();
-        catDog.woof();
+    }
+
+    public static void Task7() {
+        Line<Point> line1 = new Line<>(1, 1, 5, 5);
+        CachingLine cachingLine = new CachingLine(line1);
+        System.out.println(cachingLine.length());
+        System.out.println(cachingLine.length());
+        cachingLine.setStartPoint(new Point(2, 2));
+        System.out.println(cachingLine.length());
     }
 }
 
@@ -1228,12 +1297,82 @@ class TestBlockTask7_3 {
     public static void Task1() {
         DatabasePattern database = new DatabasePattern(new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5")));
         IntegerBD stringBD = new IntegerBD();
-        System.out.println(stringBD.convert("2", Integer.class));
+        Integer i = database.get(2, Integer.class);
+        System.out.println(i);
+    }
+
+    public static void Task2() {
+        KarateKid karateKid = new KarateKid("Дэниэл");
+        Combination combination = new Combination();
+        combination.addBead(KarateKid::beatHand);
+        combination.addBead(KarateKid::beatLegs);
+        combination.addBead(KarateKid::beatHand);
+        combination.addBead(KarateKid::beatInJump);
+        combination.beat(karateKid);
+    }
+
+    public static void Task4() {
+        Student student = new Student("Петя", 1);
+        student.addMarks(2);
+        student.addMarks(5);
+        student.setName("Коля");
+        System.out.println(student);
+        student.undo();
+        System.out.println(student);
+        student.undo();
+        System.out.println(student);
+    }
+
+    public static void Task5() {
+        Student student = new Student("Петя", 1);
+        student.addMarks(2);
+        SaveStudent saveStudent = new SaveStudentImpl(student);
+        student.addMarks(5);
+        student.setName("Коля");
+        System.out.println(student);
+        System.out.println(student.getSave(saveStudent));
+    }
+
+    public static void Task8() {
+        Stock stock1 = Stock.of("ORCL", 75);
+        Stock stock2 = Stock.of("TSLA", 696);
+        Printer printer = new Printer();
+        Bot bot = new Bot();
+        stock1.addListener(printer);
+        stock2.addListener(printer);
+        stock1.addListener(bot);
+        stock2.addListener(bot);
+        stock1.setPrice(71);
+        stock2.setPrice(700);
+        stock1.setPrice(60);
+        stock2.setPrice(50);
+    }
+
+    public static void Task9() {
+        TrafficLight trafficLight = new TrafficLight();
+        trafficLight.next();
+        trafficLight.next();
+        trafficLight.next();
+        trafficLight.next();
+        trafficLight.next();
+        trafficLight.next();
+        trafficLight.next();
+    }
+
+    public static void Task12() {
+        Polyline polyline = new Polyline(new Point(1, 1), new Point(5, 5), new Point(10, 10));
+        for (Point p: polyline) {
+            System.out.println(p);
+        }
+        Iterator<Point> pointIterator = polyline.iteratorFrom(new Point(5,5));
+        while (pointIterator.hasNext()) {
+            System.out.println(pointIterator.next());
+        }
     }
 }
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        TestBlockTask7_1.Task6();
+        TestBlockTask7_3.Task12();
     }
 }

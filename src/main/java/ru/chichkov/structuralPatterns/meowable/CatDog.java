@@ -1,10 +1,15 @@
-package ru.chichkov.animal.woof;
+package ru.chichkov.structuralPatterns.meowable;
 
 import ru.chichkov.animal.meow.Cat;
+import ru.chichkov.animal.dog.Dog;
+import ru.chichkov.animal.meow.GavAnimals;
 import ru.chichkov.animal.meow.MeowAnimals;
-import ru.chichkov.animal.meow.WoofAnimals;
 
-public class CatDog implements MeowAnimals, WoofAnimals {
+import java.beans.JavaBean;
+
+// Задача 7.2.4
+
+public class CatDog implements MeowAnimals, GavAnimals {
     private final Cat cat;
     private final Dog dog;
 
@@ -12,14 +17,13 @@ public class CatDog implements MeowAnimals, WoofAnimals {
         this.cat = new Cat(name);
         this.dog = new Dog(name);
     }
-
     @Override
     public void meow() {
         cat.meow();
     }
-
     @Override
-    public void woof() {
-        dog.woof();
+    public void gav() {
+        dog.gav();
     }
 }
+

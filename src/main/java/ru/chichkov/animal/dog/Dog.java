@@ -1,9 +1,9 @@
-package ru.chichkov.animal.woof;
+package ru.chichkov.animal.dog;
 
-import ru.chichkov.animal.meow.WoofAnimals;
+import ru.chichkov.animal.meow.GavAnimals;
 
 // Задача 7.2.4
-public class Dog implements WoofAnimals {
+public class Dog implements GavAnimals {
     private final String name;
 
     public Dog(String name) {
@@ -14,7 +14,8 @@ public class Dog implements WoofAnimals {
     public String toString() {
         return "Собака: " + name;
     }
-    public void woof() {
-        System.out.print(name + ": гав!");
+    @Override
+    public void gav() {
+        System.out.println(name + ": гав!");
     }
 }

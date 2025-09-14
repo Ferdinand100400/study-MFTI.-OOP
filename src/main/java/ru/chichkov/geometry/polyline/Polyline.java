@@ -5,10 +5,7 @@ import ru.chichkov.geometry.InterfaceLength;
 import ru.chichkov.geometry.Line;
 import ru.chichkov.geometry.point.Point;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 // Задача 1.3.2
 // Задача 1.4.3
@@ -16,7 +13,8 @@ import java.util.Objects;
 // Задача 2.1.2
 // Задача 2.3.5
 // Задача 5.1.4
-public class Polyline implements InterfaceLength {
+// Задача 7.3.12
+public class Polyline implements InterfaceLength, Iterable<Point> {
     @Getter
     private List<Point> points;
 
@@ -105,5 +103,34 @@ public class Polyline implements InterfaceLength {
             sumY += points.get(i).getY();
         }
         return Objects.hash(this.length(), sumX, sumY);
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        return points.iterator();
+    }
+    public Iterator<Point> iteratorFrom(Point point) {
+        int index = points.indexOf(point);
+        if (index == -1) throw new IllegalArgumentException("Такой точки нет");
+        return new PolylineIterator(index);
+    }
+    private class PolylineIterator implements Iterator<Point> {
+        private int index;
+
+        public PolylineIterator(int index) {
+            index--;
+            this.index = index;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return points.size() - 1 > index;
+        }
+
+        @Override
+        public Point next() {
+            index++;
+            return points.get(index);
+        }
     }
 }

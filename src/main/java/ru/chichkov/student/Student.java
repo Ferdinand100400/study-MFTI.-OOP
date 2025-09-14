@@ -1,12 +1,16 @@
 package ru.chichkov.student;
 
 import lombok.Getter;
+import lombok.Setter;
+import ru.chichkov.behavioralPatterns.Action;
+import ru.chichkov.behavioralPatterns.SaveStudent;
+import ru.chichkov.behavioralPatterns.SaveStudentImpl;
 import ru.chichkov.comparable.Comparable;
 import ru.chichkov.exception.NotCorrectMarksException;
+import ru.chichkov.geometry.point.Point;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Consumer;
 
 // Задача 1.3.1
 // Задача 1.4.7
@@ -17,14 +21,17 @@ import java.util.Objects;
 // Задача 4.2.3
 // Задача 5.1.6
 // Задача 6.1.4
+// Задача 7.3.4
+// Задача 7.3.5
 public class Student implements Comparable<Student> {
     @Getter
-    private final String name;
+    private String name;
     @Getter
-    private List<Integer> marks;
+    private LinkedList<Integer> marks;
     private final Rule rule;
 //    private static final int MIN_GRADE = 2;
 //    private static final int MAX_GRADE = 5;
+    private final LinkedList<Action> undoOperations = new LinkedList<>();
 
     public Student(String name, int...marks) {
         this.name = name;
@@ -37,13 +44,26 @@ public class Student implements Comparable<Student> {
         this.setMarks(marks);
     }
 
+    public void setName(String name) {
+        if (name == null) throw new IllegalArgumentException("Имя не установлено");
+        final String tmp = this.name;
+        undoOperations.add(() -> this.name = tmp);
+        this.name = name;
+    }
+
     public void addMarks(int...marks) {
+        int tmp = marks.length;
+        undoOperations.add(() -> {
+            for (int i = 0; i < tmp; i++) {
+                this.marks.removeLast();
+            }
+        });
         for (int i = 0; i < marks.length; i++) {
             this.setMarksIndex(this.marks.size(), marks[i]);
         }
     }
     public void setMarks(int...marks) {
-        if (marks.length > 0) this.marks = new ArrayList<>();
+        if (marks.length > 0) this.marks = new LinkedList<>();
         addMarks(marks);
     }
     public void setMarksIndex(int index, int mark) {
@@ -98,4 +118,20 @@ public class Student implements Comparable<Student> {
        return 0;
     }
 
+    @Override
+    public Student clone() {
+        try {
+            return (Student) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public void undo() {
+        undoOperations.removeLast().act();
+    }
+
+    public Student getSave(SaveStudent saveStudent) {
+        return saveStudent.getSave();
+    }
 }
