@@ -1,29 +1,30 @@
 package ru.chichkov.database.patternDB;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Map;
 import java.util.function.Function;
 
 // Задача 7.3.1
 public class DatabasePattern {
-    private List<String> listColumn;
-    private InterfaceBD interfaceBD;
+    private final List<String> data = new ArrayList<>();
+    private final Map<Class<?>, Function<String, ?>> converters = new HashMap<>();
 
-    public DatabasePattern() {
-        this.listColumn = new ArrayList<>();
-    }
-    public DatabasePattern(List<String> listColumn) {
-        this();
-        this.listColumn = listColumn;
+    public DatabasePattern(List<String> data) {
+        this.data.addAll(data);
     }
     public void addValue(String value) {
-        listColumn.add(value);
+        data.add(value);
+    }
+    public <T> void addConverter(Class<T> type, Function<String, T> converter) {
+        converters.put(type, converter);
     }
     public <T> T get(int index, Class<T> type) {
-        return convert(listColumn.get(index), interfaceBD::convert);
-    }
-    private  <R> R convert(String element, Function<String, R> function) {
-        return function.apply(element);
+        if (index < 0 || index >= data.size()) throw new IllegalArgumentException("Такого индекса нет");
+        String elem = data.get(index);
+        Function<String, ?> converter = converters.get(type);
+        if (converter == null) throw new IllegalArgumentException("Такого преобразования нет");
+        return type.cast(converter.apply(elem));
     }
 }

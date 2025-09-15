@@ -14,7 +14,6 @@ import ru.chichkov.connection.Connection;
 import ru.chichkov.database.ConnectionBD;
 import ru.chichkov.database.Database;
 import ru.chichkov.database.patternDB.DatabasePattern;
-import ru.chichkov.database.patternDB.IntegerBD;
 import ru.chichkov.exception.LossOfConnectionException;
 import ru.chichkov.DataStream.DataStream;
 import ru.chichkov.geometry.*;
@@ -1296,9 +1295,12 @@ class TestBlockTask7_2 {
 class TestBlockTask7_3 {
     public static void Task1() {
         DatabasePattern database = new DatabasePattern(new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5")));
-        IntegerBD stringBD = new IntegerBD();
-        Integer i = database.get(2, Integer.class);
-        System.out.println(i);
+        database.addConverter(Integer.class, Integer::parseInt);
+        database.addConverter(String.class, String::toString);
+        database.addConverter(Point.class, x -> new Point(Integer.parseInt(x), Integer.parseInt(x)));
+        System.out.println(database.get(2, Integer.class) + 1);
+        System.out.println(database.get(2, String.class) + 1);
+        System.out.println(database.get(2, Point.class));
     }
 
     public static void Task2() {
@@ -1373,6 +1375,6 @@ class TestBlockTask7_3 {
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        TestBlockTask7_3.Task12();
+        TestBlockTask7_3.Task1();
     }
 }
