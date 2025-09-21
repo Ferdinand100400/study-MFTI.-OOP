@@ -17,6 +17,7 @@ import ru.chichkov.database.patternDB.DatabasePattern;
 import ru.chichkov.exception.LossOfConnectionException;
 import ru.chichkov.DataStream.DataStream;
 import ru.chichkov.geometry.*;
+import ru.chichkov.linkedList.MyLinkedList;
 import ru.chichkov.math.SumIntegers;
 import ru.chichkov.math.SumStrings;
 import ru.chichkov.math.fraction.GenerateFraction;
