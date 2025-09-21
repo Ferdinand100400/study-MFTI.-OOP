@@ -1375,6 +1375,6 @@ class TestBlockTask7_3 {
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        TestBlockTask7_3.Task1();
+
     }
 }

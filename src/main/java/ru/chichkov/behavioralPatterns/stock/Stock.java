@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-// Задача 7.3.8
+// Задача 7.3.8 (Шаблон - наблюдатель)
 public class Stock {
    @Getter
     private final String name;

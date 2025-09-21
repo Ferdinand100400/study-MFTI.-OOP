@@ -3,6 +3,8 @@ package ru.chichkov.geometry.polyline;
 import ru.chichkov.geometry.Line;
 import ru.chichkov.geometry.point.Point;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 // Задача 2.1.2
@@ -47,5 +49,33 @@ public class ClosedPolyline extends Polyline {
             sumY += this.getPoints().get(i).getY();
         }
         return Objects.hash(this.length(), sumX, sumY);
+    }
+    public Iterator<Point> iteratorFrom(Point point) {
+        int index = super.getPoints().indexOf(point);
+        if (index == -1) throw new IllegalArgumentException("Такой точки нет");
+        return new ClosedPolylineIterator(index);
+    }
+
+    private class ClosedPolylineIterator implements Iterator<Point> {
+        private int index;
+
+        public ClosedPolylineIterator(int index) {
+            this.index = index;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return true;
+        }
+
+        @Override
+        public Point next() {
+            List<Point> points = ClosedPolyline.super.getPoints();
+            Point point = points.get(index);
+            int size = points.size();
+            index++;
+            index %= size;
+            return point;
+        }
     }
 }
