@@ -21,6 +21,7 @@ import ru.chichkov.linkedList.MyLinkedList;
 import ru.chichkov.math.SumIntegers;
 import ru.chichkov.math.SumStrings;
 import ru.chichkov.math.fraction.GenerateFraction;
+import ru.chichkov.reflection.Reflections;
 import ru.chichkov.stack.Stack;
 import ru.chichkov.storage.Box;
 import ru.chichkov.storage.MethodsBox;
@@ -1458,6 +1459,6 @@ class TaskStream {
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        TaskStream.task2();
+
     }
 }
