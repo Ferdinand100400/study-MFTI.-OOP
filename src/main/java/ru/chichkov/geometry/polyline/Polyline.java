@@ -28,6 +28,11 @@ public class Polyline implements InterfaceLength, Iterable<Point> {
         this.points.addAll(Arrays.asList(points));
     }
 
+    public Polyline(List<Point> points) {
+        if (points.size() == 0) return;
+        this.points = points;
+    }
+
     @Override
     public String toString() {
         if (points == null) return "Линия []";

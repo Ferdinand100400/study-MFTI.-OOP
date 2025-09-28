@@ -64,7 +64,12 @@ import ru.chichkov.math.fraction.Fraction;
 import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class TestBlockTask1_1 {
@@ -1364,18 +1369,95 @@ class TestBlockTask7_3 {
 
     public static void Task12() {
         Polyline polyline = new Polyline(new Point(1, 1), new Point(5, 5), new Point(10, 10));
-        for (Point p: polyline) {
+        for (Point p : polyline) {
             System.out.println(p);
         }
-        Iterator<Point> pointIterator = polyline.iteratorFrom(new Point(5,5));
+        Iterator<Point> pointIterator = polyline.iteratorFrom(new Point(5, 5));
         while (pointIterator.hasNext()) {
             System.out.println(pointIterator.next());
         }
     }
 }
 
+class testMyLinkedList {
+    public static void withListIterator() {
+        LinkedList<Integer> linkedList = new LinkedList<>(List.of(1, 2, 3, 4, 5, 6));
+        ListIterator<Integer> iterator = linkedList.listIterator();
+        iterator.next();
+        iterator.next();
+        iterator.add(48);
+        iterator.add(49);
+    }
+
+    public static void withSubList() {
+        LinkedList<Integer> linkedList = new LinkedList<>(List.of(1, 2, 3, 4, 5, 6));
+        linkedList.subList(2, 4);
+    }
+}
+
+class TaskStream {
+    //    Задание 1:
+//    Написать следующую стриму:
+//    дан набор объектов типа Point,
+//    необходимо взять все Point в разных координатах, (убрать с одинаковыми X,Y),
+//    отсортировать по X, отрицательные Y сделать положительными и собрать это все в ломаную (объект типа Polyline)
+    public static void task1() {
+        List<Point> points = List.of(
+                new Point(1, 1),
+                new Point(2, 2),
+                new Point(1, 1),
+                new Point(5, -6),
+                new Point(4, 9),
+                new Point(2, -5)
+        );
+        Polyline polyline = new Polyline(points.stream()
+                .distinct()
+                .sorted(Comparator.comparingInt(Point::getX))
+                .map((Point x) -> new Point(x.getX(), Math.abs(x.getY())))
+                .collect(Collectors.toList()));
+        System.out.println(polyline);
+    }
+
+//    Задание 2:
+//    Дан текстовый файл с строками содержащими имя человека и его номер в следующей форме:
+//    Вася:5
+//    Петя:3
+//    Аня:5
+//    Номера людей могут повторяться.
+//    У каких-то людей может не быть номера.
+//    Необходимо написать стриму выполняющую следующее:
+//    читаются все люди из файла, все имена приводится к нижнему регистру,
+//    но с первой буквой в верхнем регистре, убираем из перечня всех людей без номеров,
+//    а имена оставшихся группируются по их номеру:
+//    [5:[Вася, Аня], 3:[Петя]]
+    public static void task2() {
+        Path filePath = Paths.get("src/main/resources/people.txt");
+        try {
+            Map<Integer, List<String>> groupedPeople = readFile(filePath);
+            System.out.println(groupedPeople);
+        } catch (IOException e) {
+            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+        }
+    }
+    public static Map<Integer, List<String>> readFile(Path filePath) throws IOException{
+        try (Stream<String> lines = Files.lines(filePath)) {
+            return lines
+                    .map(line -> line.split(":"))
+                    .filter(line -> line.length == 2 && !line[1].isEmpty())
+                    .map((line) -> {
+                        String name = line[0].trim();
+                        String number = line[1].trim();
+                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toUpperCase();
+                        return new AbstractMap.SimpleEntry<>(Integer.parseInt(number), name);
+                    })
+                    .collect(Collectors.groupingBy(AbstractMap.SimpleEntry::getKey,
+                            Collectors.mapping(AbstractMap.SimpleEntry::getValue, Collectors.toList())));
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) throws Exception {
-
+        TaskStream.task2();
     }
 }
