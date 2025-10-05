@@ -1,6 +1,9 @@
 package ru.chichkov.reflection;
 
+import lombok.SneakyThrows;
+
 import java.lang.reflect.*;
+import java.security.cert.CertPathValidatorException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,27 +15,29 @@ public class Reflections {
     public static List<Field> fieldCollection(Class<?> cls) {
         List<Field> fieldList = new ArrayList<>();
         while (cls != Object.class) {
-            fieldList.addAll(new ArrayList<>(List.of(cls.getDeclaredFields())));
+            fieldList.addAll(List.of(cls.getDeclaredFields()));
             cls = cls.getSuperclass();
         }
         return fieldList;
     }
 
     // Задача 8.1.4
-    public static void validate(Object obj, Class<?> classTests) {
+    public static void validate(Object obj, Class<?> classTests) throws InvocationTargetException {
         List<Method> methodsTest = List.of(classTests.getMethods());
         for (Method test : methodsTest) {
-            if (test.getReturnType().equals(void.class) && test.getParameterCount() == 1) {
-                try {
-                    if (Modifier.isStatic(test.getModifiers())) test.invoke(null, obj);
-                    else {
-                        Object o = classTests.getDeclaredConstructor().newInstance();
-                        test.invoke(o, obj);
-                    }
-                } catch (Exception e) {
+            if (!test.getReturnType().equals(void.class) || test.getParameterCount() != 1) return;
+            try {
+                Object o = classTests.getDeclaredConstructor().newInstance();
+                test.setAccessible(true);
+                test.invoke(o, obj);
+            } catch (InvocationTargetException e) {
+                Throwable causer = e.getCause();
+                if (causer.getClass() == CertPathValidatorException.class)
                     throw new IllegalArgumentException("Validation failed in method: "
                             + test.getName() + " - " + e.getCause().getMessage());
-                }
+                throw new RuntimeException();
+            } catch (Exception e2) {
+                throw new IllegalArgumentException();
             }
         }
     }
@@ -59,46 +64,35 @@ public class Reflections {
 
     private static class CachingInvocationHandler implements InvocationHandler {
         private final Object target;
+        private String original;
         private final Map<Method, Object> cache = new HashMap<>();
-        private final Map<Method, Object> lastResults = new HashMap<>();
 
         public CachingInvocationHandler(Object target) {
             this.target = target;
+            for (Method method: target.getClass().getMethods()) {
+                if (method.getParameterCount() == 0)
+                    cache.put(method, null);
+            }
+            original = target.toString();
         }
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (method.getParameterCount() > 0) {
-                throw new IllegalArgumentException("Кэширование поддерживается только для методов без параметров.");
+        @SneakyThrows
+        public Object invoke(Object proxy, Method method, Object[] args) {
+            // Если пришел метод с аргументами, то проксюем, кэши сбрасываем
+            if (!original.equals(target.toString())) {
+                cache.replaceAll((Method, Object) -> null);
+                original = target.toString();
+                return method.invoke(target, args);
             }
-            // Проверяем, был ли метод вызван ранее
-            if (cache.containsKey(method)) {
-                // Если состояние объекта изменилось, вызываем метод заново
-                if (!isObjectChanging(method)) {
-                    Object result = method.invoke(target);
-                    cache.put(method, result);
-                    lastResults.put(method, result);
-                    return result;
-                }
-                // Если состояние объекта не изменилось, возвращаем кэшированное значение
+            // Если метод без аргументов и закеширован, то возвращаем кэш
+            if (cache.get(method) != null) {
                 return cache.get(method);
-            } else {
-                // Первый вызов метода
-                Object result = method.invoke(target);
-                cache.put(method, result);
-                lastResults.put(method, result);
-                return result;
             }
-        }
-
-        private boolean isObjectChanging(Method method) {
-            try {
-                Object currentResult = method.invoke(target);
-                return lastResults.get(method).equals(currentResult);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+            // если метод без аргументов и не закеширован, то кешируем
+            Object res = method.invoke(target, args);
+            cache.put(method, res);
+            return res;
         }
     }
 }

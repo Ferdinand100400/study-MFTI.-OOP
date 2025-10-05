@@ -1411,15 +1411,22 @@ class TaskStream {
                 new Point(4, 9),
                 new Point(2, -5)
         );
-        Polyline polyline = new Polyline(points.stream()
+//        Polyline polyline = new Polyline(points.stream()
+//                .distinct()
+//                .sorted(Comparator.comparingInt(Point::getX))
+//                .map((Point x) -> new Point(x.getX(), Math.abs(x.getY())))
+//                .collect(Collectors.toList()));
+        Polyline polyline = points.stream()
                 .distinct()
-                .sorted(Comparator.comparingInt(Point::getX))
                 .map((Point x) -> new Point(x.getX(), Math.abs(x.getY())))
-                .collect(Collectors.toList()));
+                .sorted(Comparator.comparingInt(Point::getX))
+                .collect(Polyline::new,
+                        Polyline::addPoints,
+                        (line1, line2) -> line1.addPoints(line2.getPoints()));
         System.out.println(polyline);
     }
 
-//    Задание 2:
+    //    Задание 2:
 //    Дан текстовый файл с строками содержащими имя человека и его номер в следующей форме:
 //    Вася:5
 //    Петя:3
@@ -1440,7 +1447,8 @@ class TaskStream {
             System.err.println("Ошибка при чтении файла: " + e.getMessage());
         }
     }
-    public static Map<Integer, List<String>> readFile(Path filePath) throws IOException{
+
+    public static Map<Integer, List<String>> readFile(Path filePath) throws IOException {
         try (Stream<String> lines = Files.lines(filePath)) {
             return lines
                     .map(line -> line.split(":"))
@@ -1459,6 +1467,6 @@ class TaskStream {
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
+        TaskStream.task1();
     }
 }
