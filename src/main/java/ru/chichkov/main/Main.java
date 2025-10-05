@@ -31,6 +31,8 @@ import ru.chichkov.structuralPatterns.meowable.CatDog;
 import ru.chichkov.structuralPatterns.meowable.CountMeow;
 import ru.chichkov.student.*;
 import ru.chichkov.temperature.Temperature;
+import ru.chichkov.testAnnatationClasses.A;
+import ru.chichkov.testAnnatationClasses.B;
 import ru.chichkov.weapon.Shooter;
 import ru.chichkov.animal.bird.Birds;
 import ru.chichkov.animal.bird.Cuckoo;
@@ -66,6 +68,8 @@ import ru.chichkov.math.MathMethods;
 import ru.chichkov.time.Time;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -1465,8 +1469,20 @@ class TaskStream {
     }
 }
 
+class TestBlockTask8_3 {
+    public static void Task1() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+        System.out.println(Reflections.collect(A.class, B.class));
+    }
+
+    public static void Task2() {
+        A a = new A();
+        Reflections.reset(a);
+        System.out.println(a);
+    }
+}
+
 public class Main {
     public static void main(String[] args) throws Exception {
-        TaskStream.task1();
+        TestBlockTask8_3.Task2();
     }
 }
