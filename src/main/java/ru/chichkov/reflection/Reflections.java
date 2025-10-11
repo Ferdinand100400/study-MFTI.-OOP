@@ -1,6 +1,8 @@
 package ru.chichkov.reflection;
 
 import lombok.SneakyThrows;
+import net.sf.cglib.proxy.Callback;
+import net.sf.cglib.proxy.Enhancer;
 import ru.chichkov.Annotation.*;
 
 import java.lang.annotation.Annotation;
@@ -42,23 +44,28 @@ public class Reflections {
         Class<?> cls = obj.getClass();
         Validate validateAnnotation = cls.getAnnotation(Validate.class);
         if (validateAnnotation == null) {
-            // Поиск псевдонимной аннотации
-            for (Annotation annotation : cls.getAnnotations()) {
-                if (annotation.annotationType().isAnnotationPresent(AValidate.class)) {
-                    try {
-                        Method valueMethod = annotation.annotationType().getMethod("value");
-                        Class<?>[] classesTests = (Class<?>[]) valueMethod.invoke(annotation);
-                        validateWithClasses(obj, classesTests);
-                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                        throw new RuntimeException("Ошибка при обработке аннотации-псевдонима: " + e.getMessage());
-                    }
-                }
+            try {
+                findAliasAnnotation(obj);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException("Ошибка при обработке аннотации-псевдонима: " + e.getMessage());
             }
             return;
         }
         // Если есть @Validate
         Class<?>[] classesTest = validateAnnotation.value();
         validateWithClasses(obj, classesTest);
+    }
+
+    // Поиск псевдонимной аннотации
+    private static void findAliasAnnotation(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> cls = obj.getClass();
+        for (Annotation annotation : cls.getAnnotations()) {
+            if (annotation.annotationType().isAnnotationPresent(AValidate.class)) {
+                Method valueMethod = annotation.annotationType().getMethod("value");
+                Class<?>[] classesTests = (Class<?>[]) valueMethod.invoke(annotation);
+                validateWithClasses(obj, classesTests);
+            }
+        }
     }
 
     // Задача 8.1.4
@@ -87,25 +94,17 @@ public class Reflections {
 
     // Задача 8.1.6
     // Задача 8.3.6
-    public static <T> T cache(Object obj) {
-        Class<?> clazz = obj.getClass();
-        Class<?>[] interfaces = clazz.getInterfaces();
-
-        if (!clazz.isAnnotationPresent(Cache.class)) return (T) obj;
-
-        if (interfaces.length > 0) {
+    @SuppressWarnings("unchecked")
+    public static <T> T cache(T obj, Class<T> clazz) {
+        if (!clazz.isAnnotationPresent(Cache.class)) return obj;
+        if (clazz.isInterface()) {
             return (T) Proxy.newProxyInstance(
                     clazz.getClassLoader(),
-                    interfaces,
-                    new CachingInvocationHandler(obj, clazz.getAnnotation(Cache.class))
-            );
-        } else {
-            return (T) Proxy.newProxyInstance(
-                    clazz.getClassLoader(),
-                    new Class<?>[]{clazz},
+                    clazz.getInterfaces(),
                     new CachingInvocationHandler(obj, clazz.getAnnotation(Cache.class))
             );
         }
+        return (T) Enhancer.create(clazz, (Callback) new CachingInvocationHandler(obj, clazz.getAnnotation(Cache.class)));
     }
 
     private static class CachingInvocationHandler implements InvocationHandler {
@@ -152,17 +151,27 @@ public class Reflections {
     }
 
     // Задача 8.3.1
-    public static Map<String, Object> collect(Class<?>... classes) throws
+    private static Map<String, Object> collect(Class<?> cls) throws
             InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         Map<String, Object> result = new HashMap<>();
+        List<Method> methods = List.of(cls.getDeclaredMethods());
+        Object o = cls.getDeclaredConstructor().newInstance();
+        for (Method method : methods) {
+            if (method.getParameterCount() == 0 && !method.getReturnType().equals(void.class) && method.isAnnotationPresent(Invoke.class)) {
+                method.setAccessible(true);
+                result.put(method.getName(), method.invoke(o));
+            }
+        }
+        return result;
+    }
+
+    public static Map<String, Object> collect(Class<?>... classes) {
+        Map<String, Object> result = new HashMap<>();
         for (Class<?> cls : classes) {
-            List<Method> methods = List.of(cls.getDeclaredMethods());
-            for (Method method : methods) {
-                if (method.getParameterCount() == 0 && !method.getReturnType().equals(void.class) && method.isAnnotationPresent(Invoke.class)) {
-                    Object o = cls.getDeclaredConstructor().newInstance();
-                    method.setAccessible(true);
-                    result.put(method.getName(), method.invoke(o));
-                }
+            try {
+                result.putAll(collect(cls));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         return result;

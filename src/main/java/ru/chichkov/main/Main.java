@@ -1470,7 +1470,7 @@ class TaskStream {
 }
 
 class TestBlockTask8_3 {
-    public static void Task1() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public static void Task1() {
         System.out.println(Reflections.collect(A.class, B.class));
     }
 
