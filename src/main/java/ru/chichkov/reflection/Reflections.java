@@ -1,7 +1,6 @@
 package ru.chichkov.reflection;
 
 import lombok.SneakyThrows;
-import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import ru.chichkov.Annotation.*;
 
@@ -95,19 +94,20 @@ public class Reflections {
     // Задача 8.1.6
     // Задача 8.3.6
     @SuppressWarnings("unchecked")
-    public static <T> T cache(T obj, Class<T> clazz) {
-        if (!clazz.isAnnotationPresent(Cache.class)) return obj;
+    public static <T> T cache(Object obj, Class<T> clazz) {
+        if (!obj.getClass().isAnnotationPresent(Cache.class)) return (T) obj;
+        CachingInvocationHandler cachingInvocationHandler = new CachingInvocationHandler(obj, clazz.getAnnotation(Cache.class));
         if (clazz.isInterface()) {
             return (T) Proxy.newProxyInstance(
-                    clazz.getClassLoader(),
-                    clazz.getInterfaces(),
-                    new CachingInvocationHandler(obj, clazz.getAnnotation(Cache.class))
+                    obj.getClass().getClassLoader(),
+                    obj.getClass().getInterfaces(),
+                    cachingInvocationHandler
             );
         }
-        return (T) Enhancer.create(clazz, (Callback) new CachingInvocationHandler(obj, clazz.getAnnotation(Cache.class)));
+        return (T) Enhancer.create(clazz, cachingInvocationHandler);
     }
 
-    private static class CachingInvocationHandler implements InvocationHandler {
+    private static class CachingInvocationHandler implements InvocationHandler, net.sf.cglib.proxy.InvocationHandler {
         private final Object target;
         private String original;
         private final Map<Method, Object> cache = new HashMap<>();
