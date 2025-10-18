@@ -1,5 +1,7 @@
 package ru.chichkov.main;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.chichkov.animal.dog.Dog;
 import ru.chichkov.animal.meow.GavAnimals;
 import ru.chichkov.behavioralPatterns.SaveStudent;
@@ -1483,6 +1485,6 @@ class TestBlockTask8_3 {
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        TestBlockTask8_3.Task2();
+
     }
 }
