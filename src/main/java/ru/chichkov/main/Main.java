@@ -1363,16 +1363,16 @@ class TestBlockTask7_3 {
         stock2.setPrice(50);
     }
 
-    public static void Task9() {
-        TrafficLight trafficLight = new TrafficLight();
-        trafficLight.next();
-        trafficLight.next();
-        trafficLight.next();
-        trafficLight.next();
-        trafficLight.next();
-        trafficLight.next();
-        trafficLight.next();
-    }
+//    public static void Task9() {
+//        TrafficLight trafficLight = new TrafficLight();
+//        trafficLight.next();
+//        trafficLight.next();
+//        trafficLight.next();
+//        trafficLight.next();
+//        trafficLight.next();
+//        trafficLight.next();
+//        trafficLight.next();
+//    }
 
     public static void Task12() {
         Polyline polyline = new Polyline(new Point(1, 1), new Point(5, 5), new Point(10, 10));
