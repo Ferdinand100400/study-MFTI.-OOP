@@ -1,13 +1,16 @@
 package ru.chichkov.human;
 
+import jakarta.persistence.Embeddable;
+
 // Задача 1.1.3
 // Задача 1.4.5
 // Задача 1.6.2
 // Задача 7.1.9
+@Embeddable
 public class Name {
-    private final String surname;
-    private final String name;
-    private final String patronymic;
+    private String surname;
+    private String name;
+    private String patronymic;
 
     private Name(String name, String surname, String patronymic) {
         if (surname == null) surname = "";
@@ -19,6 +22,7 @@ public class Name {
         this.name = name;
         this.patronymic = patronymic;
     }
+    private Name() {}
 
     @Override
     public String toString() {
